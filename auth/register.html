@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../shared/css/variables.css">
+    <link rel="stylesheet" href="../shared/css/base.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="auth-container large-container">
+    <h2>Crear Cuenta</h2>
+    
+    <form id="registerForm">
+        
+        <div id="step1">
+            <p>Paso 1: Datos de acceso</p>
+            <input type="email" id="regEmail" placeholder="Correo electrónico" required>
+            <input type="password" id="regPassword" placeholder="Contraseña" required>
+            
+            <select id="regRole" required>
+                <option value="">¿Qué buscas en la plataforma?</option>
+                <option value="postulante">Quiero encontrar trabajo (Candidato)</option>
+                <option value="empresa">Quiero contratar talento (Empresa)</option>
+            </select>
+            
+            <button type="button" onclick="nextStep()">Siguiente</button>
+            <a href="login.html" class="link-footer">¿Ya tienes cuenta? Inicia sesión</a>
+        </div>
+
+        <div id="step2-postulante" class="hidden">
+            <p>Paso 2: Completa tu Perfil Profesional</p>
+            <div class="form-grid">
+                <input type="text" id="p_nombre" placeholder="Nombres">
+                <input type="text" id="p_apellidos" placeholder="Apellidos">
+                <input type="date" id="p_nacimiento" title="Fecha de Nacimiento">
+                <input type="text" id="p_dni" placeholder="DNI / Pasaporte">
+                <input type="tel" id="p_telefono" placeholder="Teléfono">
+                <input type="text" id="p_ubicacion" placeholder="Ciudad / Región">
+                
+                <select id="p_educacion">
+                    <option value="">Nivel de Educación</option>
+                    <option value="Técnico Incompleto">Técnico Incompleto</option>
+                    <option value="Técnico Completo">Técnico Completo</option>
+                    <option value="Universitario Incompleto">Universitario Incompleto</option>
+                    <option value="Universitario Completo">Universitario Completo</option>
+                    <option value="Postgrado/Maestría">Postgrado / Maestría</option>
+                </select>
+                
+                <input type="text" id="p_institucion" placeholder="Institución Educativa Actual/Última">
+                <input type="text" id="p_profesion" placeholder="Profesión o Titular (Ej. Ing. Sistemas)">
+                <input type="number" id="p_experiencia" placeholder="Años de experiencia">
+                
+                <select id="p_viajar">
+                    <option value="">¿Disponibilidad para viajar?</option>
+                    <option value="Si">Sí</option>
+                    <option value="No">No</option>
+                </select>
+
+                <input type="text" id="p_habilidades" placeholder="Habilidades (Ej. Java, Ventas, Excel)">
+                <input type="url" id="p_linkedin" placeholder="URL de LinkedIn o Portafolio">
+                <input type="number" id="p_salario" placeholder="Expectativa Salarial (Mensual)">
+                <div class="full-width" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="p_cv" style="font-size: 14px; color: #555; font-weight: bold;">Sube tu CV (Formato PDF o DOCX):</label>
+                    <input type="file" id="p_cv" accept=".pdf,.doc,.docx" style="background: #f8f9fa;">
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="prevStep()">Atrás</button>
+                <button type="submit" class="btn-primary">Finalizar Registro</button>
+            </div>
+        </div>
+
+        <div id="step2-empresa" class="hidden">
+            <p>Paso 2: Datos de tu Empresa</p>
+            <div class="form-grid">
+                <input type="text" id="e_ruc" placeholder="RUC">
+                <input type="text" id="e_razon" placeholder="Razón Social">
+                <input type="text" id="e_comercial" placeholder="Nombre Comercial">
+                <input type="text" id="e_sector" placeholder="Sector / Industria (Ej. Tecnología, Minería)">
+                
+                <select id="e_tamano">
+                    <option value="">Tamaño de la Empresa</option>
+                    <option value="1-10">Micro (1-10 empleados)</option>
+                    <option value="11-50">Pequeña (11-50 empleados)</option>
+                    <option value="51-200">Mediana (51-200 empleados)</option>
+                    <option value="200+">Grande (Más de 200 empleados)</option>
+                </select>
+
+                <input type="text" id="e_ubicacion" placeholder="Dirección Principal / Ciudad">
+                <input type="tel" id="e_telefono" placeholder="Teléfono de Contacto">
+                <input type="url" id="e_web" placeholder="Sitio Web">
+                <input type="text" id="e_contacto" placeholder="Nombre de la Persona de Contacto">
+                <input type="text" id="e_cargo" placeholder="Cargo del Contacto (Ej. RRHH)">
+                <input type="url" id="e_logo" placeholder="URL del Logo (Opcional)">
+                <textarea id="e_descripcion" placeholder="Breve descripción de la empresa" rows="1"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="prevStep()">Atrás</button>
+                <button type="submit" class="btn-primary">Finalizar Registro</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div id="footer"></div>
+<script src="../shared/js/mockData.js"></script>
+<script src="../shared/js/utils.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Panel | TalentoHub</title>
+    <link rel="stylesheet" href="../../shared/css/variables.css">
+    <link rel="stylesheet" href="../../shared/css/base.css">
+    <link rel="stylesheet" href="dashboard_candidate.css">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="dashboard-container">
+    <aside class="profile-sidebar">
+        <div class="profile-header">
+            <img id="profileFoto" src="" alt="Foto de perfil" class="profile-img">
+            <h2 id="profileName">Cargando...</h2>
+            <p id="profileProfession" class="text-muted">Cargando...</p>
+        </div>
+        
+        <div class="profile-details">
+            <p><strong>Ubicación:</strong> <span id="profileLocation"></span></p>
+            <p><strong>Teléfono:</strong> <span id="profilePhone"></span></p>
+            <p><strong>Educación:</strong> <span id="profileEducation"></span></p>
+            <p><strong>Experiencia:</strong> <span id="profileExperience"></span> años</p>
+            <p><strong>Expectativa Salarial:</strong> S/ <span id="profileSalary"></span></p>
+            
+            <div class="skills-container">
+                <strong>Habilidades:</strong>
+                <div id="profileSkills" class="skills-tags"></div>
+            </div>
+
+            <div class="profile-actions">
+                <a id="profileCV" href="#" target="_blank" class="btn btn-outline">Ver mi CV actual</a>
+                <a id="profileLinkedIn" href="#" target="_blank" class="btn btn-outline">LinkedIn</a>
+                <button onclick="toggleEditMode()" class="btn btn-primary">Editar Perfil</button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="dashboard-content">
+        
+        <section id="viewPostulaciones">
+            <h2>Mis Postulaciones</h2>
+            <div id="postulacionesContainer" class="postulaciones-list">
+                </div>
+        </section>
+
+        <section id="editProfileSection" class="hidden">
+            <h2>Editar Mi Perfil</h2>
+            <form id="editProfileForm" class="edit-form">
+                <div class="form-grid">
+                    <div>
+                        <label>Nombre</label>
+                        <input type="text" id="editNombre" required>
+                    </div>
+                    <div>
+                        <label>Apellidos</label>
+                        <input type="text" id="editApellidos" required>
+                    </div>
+                    <div>
+                        <label>Fecha de Nacimiento</label>
+                        <input type="date" id="editNacimiento" required>
+                    </div>
+                    <div>
+                        <label>DNI</label>
+                        <input type="text" id="editDNI" required>
+                    </div>
+                    <div>
+                        <label>Teléfono</label>
+                        <input type="tel" id="editTelefono" required>
+                    </div>
+                    <div>
+                        <label>Ubicación</label>
+                        <input type="text" id="editUbicacion" required>
+                    </div>
+                    <div>
+                        <label>Nivel de Educación</label>
+                        <select id="editNivelEducacion">
+                            <option value="Técnico Incompleto">Técnico Incompleto</option>
+                            <option value="Técnico Completo">Técnico Completo</option>
+                            <option value="Universitario Incompleto">Universitario Incompleto</option>
+                            <option value="Universitario Completo">Universitario Completo</option>
+                            <option value="Postgrado/Maestría">Postgrado/Maestría</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Institución</label>
+                        <input type="text" id="editInstitucion" required>
+                    </div>
+                    <div>
+                        <label>Profesión / Cargo</label>
+                        <input type="text" id="editProfesion" required>
+                    </div>
+                    <div>
+                        <label>Años de Experiencia</label>
+                        <input type="number" id="editExperiencia" required>
+                    </div>
+                    <div>
+                        <label>Disponibilidad para viajar</label>
+                        <select id="editViajar">
+                            <option value="Si">Sí</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Expectativa Salarial (S/)</label>
+                        <input type="number" id="editSueldo" required>
+                    </div>
+                    <div class="full-width">
+                        <label>Habilidades (Separadas por comas)</label>
+                        <input type="text" id="editHabilidades" placeholder="Ej: React, Python, Diseño UX">
+                    </div>
+                    <div>
+                        <label>URL de LinkedIn</label>
+                        <input type="url" id="editLinkedin">
+                    </div>
+                    <div>
+                        <label>URL de Foto de Perfil</label>
+                        <input type="url" id="editFoto">
+                    </div>
+                    <div class="full-width">
+                        <label>Ruta o URL a tu CV (Ej. ../cv/uploads/mi_cv.pdf)</label>
+                        <input type="text" id="editCV">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="toggleEditMode()" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <div id="postulacionModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+<script src="../../shared/js/mockData.js"></script>
+<script src="../../shared/js/utils.js"></script>
+<script src="dashboard_candidate.js"></script>
+
+</body>
+</html>

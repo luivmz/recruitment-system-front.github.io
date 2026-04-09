@@ -1,0 +1,106 @@
+/* =======================
+   CONTENEDOR GENERAL AUTH
+======================= */
+.auth-container {
+    width: 380px;
+    margin: 100px auto;
+    background: var(--white, #fff);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* TITULO */
+.auth-container h2 {
+    margin-bottom: 20px;
+}
+
+/* FORMULARIO */
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* INPUTS */
+.auth-container input,
+.auth-container select {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* BOTÓN */
+.auth-container button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-container button:hover {
+    opacity: 0.9;
+}
+
+/* LINK EXTRA */
+.auth-container a {
+    margin-top: 10px;
+    display: block;
+    font-size: 14px;
+}
+
+/*  ---------------------------- */
+
+/* Modificadores para el contenedor cuando hay muchos datos */
+.large-container {
+    width: 100%;
+    max-width: 700px; /* Más ancho para la grilla */
+}
+
+/* Ocultar secciones */
+.hidden {
+    display: none !important;
+}
+
+/* Grilla para formularios grandes (Paso 2) */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 15px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* Hacer que algunos inputs ocupen todo el ancho si es necesario */
+.form-grid textarea,
+.form-grid .full-width {
+    grid-column: span 2;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+}
+
+/* Contenedor de botones inferiores */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    background: #6c757d !important;
+}
+
+.link-footer {
+    display: block;
+    margin-top: 15px;
+    color: var(--primary);
+    text-decoration: none;
+}

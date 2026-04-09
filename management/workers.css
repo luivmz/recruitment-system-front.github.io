@@ -1,0 +1,190 @@
+/* =======================
+   ESTRUCTURA GENERAL
+======================= */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 60vh;
+}
+
+.header-section h1 {
+    color: var(--primary, #0056b3);
+    margin-bottom: 5px;
+}
+
+.text-muted {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* =======================
+   FILTROS
+======================= */
+.filters-container {
+    display: flex;
+    gap: 15px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filters-container input, 
+.filters-container select {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.filters-container input:focus, 
+.filters-container select:focus {
+    border-color: var(--primary, #0056b3);
+}
+
+/* =======================
+   GRILLA DE CANDIDATOS
+======================= */
+.workers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.worker-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.worker-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.worker-foto {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px auto;
+    border: 3px solid #f0f4f8;
+}
+
+.worker-name {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.worker-profesion {
+    color: var(--primary, #0056b3);
+    font-weight: bold;
+    margin: 5px 0 15px 0;
+    font-size: 14px;
+}
+
+.worker-info {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.skill-tag {
+    background: #e9ecef;
+    color: #495057;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.btn-contact {
+    margin-top: auto;
+    padding: 10px;
+    background: var(--primary, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-contact:hover {
+    opacity: 0.9;
+}
+
+/* =======================
+   MODAL PERFIL
+======================= */
+.hidden { display: none !important; }
+
+.modal {
+    display: none; 
+    position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: #fff; padding: 30px; border-radius: 12px;
+    width: 90%; max-width: 600px; position: relative;
+    max-height: 90vh; overflow-y: auto;
+}
+
+.close {
+    position: absolute; top: 15px; right: 20px; font-size: 28px;
+    color: #aaa; cursor: pointer;
+}
+
+.close:hover { color: #333; }
+
+.perfil-header {
+    display: flex; gap: 20px; align-items: center; margin-bottom: 20px;
+    border-bottom: 1px solid #eee; padding-bottom: 20px;
+}
+
+.perfil-header img {
+    width: 80px; height: 80px; border-radius: 50%;
+}
+
+.contact-box {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+}

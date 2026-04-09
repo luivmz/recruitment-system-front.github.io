@@ -1,0 +1,27 @@
+/* Variables CSS Globales */
+
+:root {
+
+    /* 🎨 COLORES */
+    --primary: #1e293b;
+    --secondary: #0f172a;
+    --accent: #3b82f6;
+    --background: #f8fafc;
+    --text: #1e293b;
+    --white: #ffffff;
+    --gray: #64748b;
+
+    /* 📏 ESPACIADOS */
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+
+    /* 🔤 TIPOGRAFÍA */
+    --font-main: Arial, Helvetica, sans-serif;
+
+    /* 🎯 BORDES */
+    --radius: 8px;
+
+    /* 🌑 SOMBRAS */
+    --shadow: 0 4px 10px rgba(0,0,0,0.1);
+}

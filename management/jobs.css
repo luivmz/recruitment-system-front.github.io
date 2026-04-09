@@ -1,0 +1,202 @@
+/* =======================
+   ESTRUCTURA GENERAL
+======================= */
+.container {
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header-section h1 {
+    color: var(--primary, #0056b3);
+    margin-bottom: 5px;
+}
+
+.header-section p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* =======================
+   FILTROS AVANZADOS
+======================= */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.filters input,
+.filters select {
+    flex: 1;
+    min-width: 180px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.filters input:focus,
+.filters select:focus {
+    border-color: var(--primary, #0056b3);
+}
+
+/* =======================
+   TARJETAS DE OFERTAS
+======================= */
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.job-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    border-color: var(--primary, #0056b3);
+}
+
+.job-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.empresa-logo-mini {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: #f4f4f4;
+}
+
+.empresa-nombre {
+    color: #666;
+    font-size: 14px;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.badge-cat { background: #e0f2fe; color: #0284c7; }
+.badge-mod { background: #dcfce7; color: #166534; }
+
+.btn-ver-mas {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.job-card:hover .btn-ver-mas {
+    background: var(--primary, #0056b3);
+    color: white;
+    border-color: var(--primary, #0056b3);
+}
+
+/* =======================
+   MODAL DE DETALLES
+======================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal-header-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.empresa-logo-grande {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+
+.modal-body-info hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+.btn-postular {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--primary, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-postular:hover {
+    background: #004494;
+}

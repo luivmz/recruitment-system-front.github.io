@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración | TalentoHub</title>
+    <link rel="stylesheet" href="../../shared/css/variables.css">
+    <link rel="stylesheet" href="../../shared/css/base.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="admin-container">
+    <aside class="admin-sidebar">
+        <h2>Admin Panel</h2>
+        <nav>
+            <button class="nav-btn active" onclick="showSection('resumen')">📊 Resumen</button>
+            <button class="nav-btn" onclick="showSection('usuarios')">👥 Usuarios / Postulantes</button>
+            <button class="nav-btn" onclick="showSection('empresas')">🏢 Empresas</button>
+        </nav>
+    </aside>
+
+    <main class="admin-content">
+        <section id="sec-resumen" class="admin-section">
+            <h1>Panel de Control</h1>
+            <div id="metrics" class="metrics-grid">
+                </div>
+        </section>
+
+        <section id="sec-usuarios" class="admin-section hidden">
+            <div class="section-header">
+                <h1>Gestión de Postulantes</h1>
+                <input type="text" id="searchUser" placeholder="Buscar por nombre o email..." oninput="filterUsers()">
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Profesión</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableUsers"></tbody>
+            </table>
+        </section>
+
+        <section id="sec-empresas" class="admin-section hidden">
+            <div class="section-header">
+                <h1>Empresas Registradas</h1>
+                <input type="text" id="searchEmpresa" placeholder="Buscar empresa..." oninput="filterCompanies()">
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Empresa</th>
+                        <th>Sector</th>
+                        <th>Usuario Vinculado</th>
+                        <th>Ofertas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableCompanies"></tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<div id="adminModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" onclick="closeAdminModal()">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+<script src="../../shared/js/mockData.js"></script>
+<script src="../../shared/js/utils.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

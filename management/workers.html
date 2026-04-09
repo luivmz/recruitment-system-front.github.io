@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Talentos | TalentoHub</title>
+    <link rel="stylesheet" href="../../shared/css/variables.css">
+    <link rel="stylesheet" href="../../shared/css/base.css">
+    <link rel="stylesheet" href="workers.css">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+    <div class="header-section">
+        <h1>🔍 Buscador de Talentos</h1>
+        <p class="text-muted">Encuentra a los mejores profesionales para tu empresa y contáctalos directamente.</p>
+    </div>
+
+    <div class="filters-container">
+        <input type="text" id="searchTexto" placeholder="Buscar por nombre, profesión o habilidad (Ej. React, Data)...">
+        
+        <select id="filterUbicacion">
+            <option value="">Todas las ubicaciones</option>
+            <option value="Lima">Lima</option>
+            <option value="Arequipa">Arequipa</option>
+            <option value="Huancayo">Huancayo</option>
+            <option value="Trujillo">Trujillo</option>
+        </select>
+
+        <select id="filterExperiencia">
+            <option value="">Experiencia (Cualquiera)</option>
+            <option value="0-2">0 a 2 años (Junior)</option>
+            <option value="3-5">3 a 5 años (Semi-Senior)</option>
+            <option value="6+">Más de 5 años (Senior)</option>
+        </select>
+    </div>
+
+    <div id="workersGrid" class="workers-grid">
+        </div>
+</div>
+
+<div id="modalPerfil" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="perfilCompleto">
+            </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+<script src="../../shared/js/mockData.js"></script>
+<script src="../../shared/js/utils.js"></script>
+<script src="workers.js"></script>
+
+</body>
+</html>

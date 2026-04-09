@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Reclutamiento GRUPO 1</title>
+
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/variables.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Encuentra el mejor talento o tu próximo trabajo</h1>
+    <p>Plataforma digital para reclutamiento eficiente</p>
+    <div class="search-box">
+    
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Buscar empleo, tecnología, empresa o área..."
+    >
+
+    <select id="categoriaSelect">
+        <option value="">Todas las categorías</option>
+    </select>
+
+    <select id="ubicacionSelect">
+        <option value="">Todo el Perú</option>
+        <option value="actual">📍 Mi ubicación actual</option>
+
+        <option>Lima</option>
+        <option>Arequipa</option>
+        <option>Cusco</option>
+        <option>La Libertad</option>
+        <option>Piura</option>
+        <option>Lambayeque</option>
+        <option>Junín</option>
+        <option>Ancash</option>
+        <option>Puno</option>
+        <option>Ica</option>
+        <option>San Martín</option>
+        <option>Cajamarca</option>
+        <option>Huánuco</option>
+        <option>Ayacucho</option>
+        <option>Ucayali</option>
+        <option>Amazonas</option>
+        <option>Huancavelica</option>
+        <option>Moquegua</option>
+        <option>Tacna</option>
+        <option>Tumbes</option>
+        <option>Pasco</option>
+        <option>Madre de Dios</option>
+        <option>Apurímac</option>
+    </select>
+
+    <button onclick="buscarOfertas()">Buscar</button>
+
+</div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="feature">
+        <h3>Para Candidatos</h3>
+        <p>Postula fácilmente a múltiples empleos.</p>
+    </div>
+
+    <div class="feature">
+        <h3>Para Empresas</h3>
+        <p>Publica ofertas y gestiona talento.</p>
+    </div>
+
+    <div class="feature">
+        <h3>Gestión Inteligente</h3>
+        <p>Optimiza el proceso de selección.</p>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script src="shared/js/mockData.js"></script>
+<script src="shared/js/utils.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
