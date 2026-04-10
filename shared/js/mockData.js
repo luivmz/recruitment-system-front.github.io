@@ -12,12 +12,20 @@ const DB = {
         { id: 4, email: "contacto@creativeagency.io", password: "123456", rol: "empresa" },
         { id: 7, email: "talento@globaldata.pe", password: "123456", rol: "empresa" },
         { id: 8, email: "jobs@cloudnet.com", password: "123456", rol: "empresa" },
-        // Usuarios Postulantes (5 postulantes)
+        
+        // Usuarios Postulantes ORIGINALES (5 postulantes)
         { id: 3, email: "juan.perez@email.com", password: "123456", rol: "postulante" },
         { id: 5, email: "m.garcia@gmail.com", password: "123456", rol: "postulante" },
         { id: 6, email: "l.vargas@outlook.com", password: "123456", rol: "postulante" },
         { id: 9, email: "c.ramirez@email.com", password: "123456", rol: "postulante" },
-        { id: 10, email: "d.castro@email.com", password: "123456", rol: "postulante" }
+        { id: 10, email: "d.castro@email.com", password: "123456", rol: "postulante" },
+        
+        // NUEVOS Usuarios Postulantes (Para Ranking y Filtros Avanzados)
+        { id: 11, email: "j.gomez@email.com", password: "123456", rol: "postulante" }, // Senior Backend
+        { id: 12, email: "a.torres@email.com", password: "123456", rol: "postulante" }, // Senior Frontend
+        { id: 13, email: "r.silva@email.com", password: "123456", rol: "postulante" }, // Mid Fullstack
+        { id: 14, email: "l.mendoza@email.com", password: "123456", rol: "postulante" }, // Junior Data Analyst
+        { id: 15, email: "p.rojas@email.com", password: "123456", rol: "postulante" }  // Senior Ciberseguridad
     ],
 
     empresas: [
@@ -64,6 +72,7 @@ const DB = {
     ],
 
     postulantes: [
+        // ORIGINALES
         {
             id: 20, user_id: 3, 
             nombre: "Juan", apellidos: "Pérez", 
@@ -108,6 +117,65 @@ const DB = {
             experiencia_anios: 4, disponibilidad_viajar: "No", habilidades: ["SEO", "Google Ads", "Content Strategy"], 
             linkedin: "https://linkedin.com/in/dianacastro", expectativa_salarial: 4000,
             cv_url: "/cv/d_castro.pdf", foto: "https://i.pravatar.cc/150?u=10"
+        },
+
+        // ==========================================
+        // NUEVOS POSTULANTES (Para Pruebas de Ranking)
+        // ==========================================
+        {
+            id: 25, user_id: 11, 
+            nombre: "Jorge", apellidos: "Gómez", 
+            fecha_nacimiento: "1990-05-12", dni: "45871236", telefono: "911222333", ubicacion: "Lima, Perú",
+            nivel_educacion: "Postgrado/Maestría", institucion: "Pontificia Universidad Católica del Perú", profesion: "Arquitecto Backend",
+            experiencia_anios: 8, disponibilidad_viajar: "Si", 
+            // 10 Habilidades para perfil top rankeado
+            habilidades: ["Java", "Spring Boot", "Microservicios", "Docker", "Kubernetes", "AWS", "PostgreSQL", "Redis", "GraphQL", "CI/CD"], 
+            linkedin: "https://linkedin.com/in/jgomez", expectativa_salarial: 8500,
+            cv_url: "/cv/j_gomez.pdf", foto: "https://i.pravatar.cc/150?u=11"
+        },
+        {
+            id: 26, user_id: 12, 
+            nombre: "Andrea", apellidos: "Torres", 
+            fecha_nacimiento: "1994-12-08", dni: "76543210", telefono: "922333444", ubicacion: "Arequipa, Perú",
+            nivel_educacion: "Universitario Completo", institucion: "Universidad Católica San Pablo", profesion: "Senior Frontend Developer",
+            experiencia_anios: 5, disponibilidad_viajar: "No", 
+            // 10 Habilidades para perfil top rankeado en Frontend
+            habilidades: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux", "Jest", "Cypress", "Figma", "Web Performance", "Git"], 
+            linkedin: "https://linkedin.com/in/atorres", expectativa_salarial: 6000,
+            cv_url: "/cv/a_torres.pdf", foto: "https://i.pravatar.cc/150?u=12"
+        },
+        {
+            id: 27, user_id: 13, 
+            nombre: "Roberto", apellidos: "Silva", 
+            fecha_nacimiento: "1997-09-25", dni: "70981234", telefono: "933444555", ubicacion: "Trujillo, Perú",
+            nivel_educacion: "Universitario Completo", institucion: "Universidad Privada Antenor Orrego", profesion: "Fullstack Developer",
+            experiencia_anios: 3, disponibilidad_viajar: "Si", 
+            // 7 Habilidades (Perfil intermedio)
+            habilidades: ["Node.js", "Express", "MongoDB", "Vue.js", "JavaScript", "HTML5", "CSS3"], 
+            linkedin: "https://linkedin.com/in/rsilva", expectativa_salarial: 4000,
+            cv_url: "/cv/r_silva.pdf", foto: "https://i.pravatar.cc/150?u=13"
+        },
+        {
+            id: 28, user_id: 14, 
+            nombre: "Lucía", apellidos: "Mendoza", 
+            fecha_nacimiento: "2001-04-18", dni: "78123456", telefono: "944555666", ubicacion: "Huancayo, Perú",
+            nivel_educacion: "Universitario Incompleto", institucion: "Universidad Continental", profesion: "Data Analyst Jr.",
+            experiencia_anios: 1, disponibilidad_viajar: "No", 
+            // 4 Habilidades (Perfil Junior)
+            habilidades: ["Excel Avanzado", "SQL Básico", "Power BI", "Python"], 
+            linkedin: "https://linkedin.com/in/lmendoza", expectativa_salarial: 1800,
+            cv_url: "/cv/l_mendoza.pdf", foto: "https://i.pravatar.cc/150?u=14"
+        },
+        {
+            id: 29, user_id: 15, 
+            nombre: "Pedro", apellidos: "Rojas", 
+            fecha_nacimiento: "1991-11-03", dni: "42345678", telefono: "955666777", ubicacion: "Remoto",
+            nivel_educacion: "Universitario Completo", institucion: "Universidad Nacional Mayor de San Marcos", profesion: "Especialista en Ciberseguridad",
+            experiencia_anios: 7, disponibilidad_viajar: "Si", 
+            // 10 Habilidades para perfil top rankeado en Seguridad
+            habilidades: ["Ethical Hacking", "Penetration Testing", "Linux", "Wireshark", "Cryptography", "Python", "Bash", "OWASP", "ISO 27001", "SIEM"], 
+            linkedin: "https://linkedin.com/in/projas", expectativa_salarial: 7500,
+            cv_url: "/cv/p_rojas.pdf", foto: "https://i.pravatar.cc/150?u=15"
         }
     ],
 
@@ -163,12 +231,62 @@ const DB = {
     ],
 
     postulaciones: [
-        { id: 9001, oferta_id: 501, postulante_id: 20, fecha_postulacion: "2026-04-08T08:50", estado: "pendiente", comentario: "Me interesa el stack." },
-        { id: 9002, oferta_id: 503, postulante_id: 21, fecha_postulacion: "2026-04-08T10:20", estado: "visto", comentario: "Tengo experiencia previa." },
-        { id: 9003, oferta_id: 501, postulante_id: 22, fecha_postulacion: "2026-04-08T11:45", estado: "rechazado", comentario: "Busco nuevos retos." },
-        { id: 9004, oferta_id: 502, postulante_id: 20, fecha_postulacion: "2026-04-08T12:00", estado: "entrevista", comentario: "Disponibilidad híbrida." },
-        { id: 9005, oferta_id: 505, postulante_id: 23, fecha_postulacion: "2026-04-08T14:00", estado: "pendiente", comentario: "Experiencia en Machine Learning." },
-        { id: 9006, oferta_id: 507, postulante_id: 24, fecha_postulacion: "2026-04-08T15:30", estado: "visto", comentario: "Vivo en Lima, disponibilidad inmediata." }
+        // ==========================================
+        // OFERTA 501: Desarrollador Frontend React
+        // ==========================================
+        { id: 9001, oferta_id: 501, postulante_id: 20, fecha_postulacion: "2026-04-05T10:00", estado: "entrevista", comentario: "Buen perfil fullstack, encaja con lo que buscamos." },
+        { id: 9002, oferta_id: 501, postulante_id: 25, fecha_postulacion: "2026-04-06T11:30", estado: "pendiente", comentario: "Excelente dominio exclusivo de React y UI." },
+        { id: 9003, oferta_id: 501, postulante_id: 28, fecha_postulacion: "2026-04-07T09:15", estado: "visto", comentario: "Perfil Junior, pero con mucho potencial y buen portafolio." },
+        { id: 9004, oferta_id: 501, postulante_id: 22, fecha_postulacion: "2026-04-08T14:00", estado: "rechazado", comentario: "Su perfil está más orientado a Data, no a Frontend." },
+
+        // ==========================================
+        // OFERTA 502: Especialista en Marketing Digital
+        // ==========================================
+        { id: 9005, oferta_id: 502, postulante_id: 21, fecha_postulacion: "2026-04-02T16:20", estado: "entrevista", comentario: "Mucha experiencia en campañas y SEO." },
+        { id: 9006, oferta_id: 502, postulante_id: 29, fecha_postulacion: "2026-04-05T08:45", estado: "visto", comentario: "Fuerte en Google Analytics y Growth Hacking." },
+        { id: 9007, oferta_id: 502, postulante_id: 26, fecha_postulacion: "2026-04-08T10:10", estado: "pendiente", comentario: "Interesante cruce con UX, podría aportar valor al equipo." },
+
+        // ==========================================
+        // OFERTA 503: Diseñador UX/UI Senior
+        // ==========================================
+        { id: 9008, oferta_id: 503, postulante_id: 26, fecha_postulacion: "2026-04-01T09:00", estado: "entrevista", comentario: "Portafolio impecable en Figma y buen manejo de usuarios." },
+        { id: 9009, oferta_id: 503, postulante_id: 21, fecha_postulacion: "2026-04-03T11:20", estado: "visto", comentario: "Sabe diseño y marketing, buen complemento." },
+        { id: 9010, oferta_id: 503, postulante_id: 25, fecha_postulacion: "2026-04-06T15:40", estado: "rechazado", comentario: "Perfil demasiado técnico (programador), buscamos puro diseño visual." },
+
+        // ==========================================
+        // OFERTA 504: Ingeniero de Datos
+        // ==========================================
+        { id: 9011, oferta_id: 504, postulante_id: 23, fecha_postulacion: "2026-04-04T10:00", estado: "entrevista", comentario: "Seniority alto en Machine Learning y Big Data." },
+        { id: 9012, oferta_id: 504, postulante_id: 22, fecha_postulacion: "2026-04-05T14:30", estado: "visto", comentario: "Buen nivel de SQL y Python, candidato sólido." },
+        { id: 9013, oferta_id: 504, postulante_id: 27, fecha_postulacion: "2026-04-07T12:00", estado: "pendiente", comentario: "Es Arquitecto Backend, pero podría adaptarse a Data Engineer." },
+
+        // ==========================================
+        // OFERTA 505: Desarrollador Backend Node.js
+        // ==========================================
+        { id: 9014, oferta_id: 505, postulante_id: 24, fecha_postulacion: "2026-04-02T13:15", estado: "entrevista", comentario: "Experto en Node, APIs y Docker. Justo lo que pedimos." },
+        { id: 9015, oferta_id: 505, postulante_id: 27, fecha_postulacion: "2026-04-04T09:45", estado: "visto", comentario: "Arquitecto Backend muy sólido, pedir pretensiones salariales." },
+        { id: 9016, oferta_id: 505, postulante_id: 20, fecha_postulacion: "2026-04-06T16:20", estado: "pendiente", comentario: "Sabe Node, falta evaluar en prueba técnica." },
+        { id: 9017, oferta_id: 505, postulante_id: 23, fecha_postulacion: "2026-04-08T11:10", estado: "rechazado", comentario: "Perfil enfocado en Python/Data, no maneja Node.js." },
+
+        // ==========================================
+        // OFERTA 506: Gerente de Proyectos TI
+        // ==========================================
+        { id: 9018, oferta_id: 506, postulante_id: 20, fecha_postulacion: "2026-04-01T08:30", estado: "visto", comentario: "Tiene liderazgo en equipos ágiles." },
+        { id: 9019, oferta_id: 506, postulante_id: 27, fecha_postulacion: "2026-04-03T10:00", estado: "entrevista", comentario: "Perfil integral de arquitectura y gestión de equipos." },
+        { id: 9020, oferta_id: 506, postulante_id: 24, fecha_postulacion: "2026-04-05T15:45", estado: "pendiente", comentario: "Postula para dar el salto de Dev a Management." },
+
+        // ==========================================
+        // OFERTA 507: Analista de QA
+        // ==========================================
+        { id: 9021, oferta_id: 507, postulante_id: 28, fecha_postulacion: "2026-04-06T09:20", estado: "entrevista", comentario: "Conoce frameworks de pruebas como Cypress y Jest." },
+        { id: 9022, oferta_id: 507, postulante_id: 25, fecha_postulacion: "2026-04-07T14:10", estado: "visto", comentario: "Buen entendimiento de pruebas unitarias en Frontend." },
+        { id: 9023, oferta_id: 507, postulante_id: 22, fecha_postulacion: "2026-04-09T08:00", estado: "pendiente", comentario: "Perfil analítico, podría funcionar para QA manual." },
+
+        // ==========================================
+        // OFERTA 508: Especialista en Ciberseguridad
+        // ==========================================
+        { id: 9024, oferta_id: 508, postulante_id: 24, fecha_postulacion: "2026-04-05T11:00", estado: "visto", comentario: "Maneja AWS y redes, buen acercamiento a la seguridad." },
+        { id: 9025, oferta_id: 508, postulante_id: 27, fecha_postulacion: "2026-04-06T13:30", estado: "entrevista", comentario: "Conocimientos profundos en seguridad backend y vulnerabilidades." }
     ]
 };
 

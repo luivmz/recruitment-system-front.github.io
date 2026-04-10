@@ -14,11 +14,11 @@
 <div class="container">
     <div class="header-section">
         <h1>🔍 Buscador de Talentos</h1>
-        <p class="text-muted">Encuentra a los mejores profesionales para tu empresa y contáctalos directamente.</p>
+        <p class="text-muted">Encuentra a los mejores profesionales evaluados y rankeados según tus necesidades.</p>
     </div>
 
     <div class="filters-container">
-        <input type="text" id="searchTexto" placeholder="Buscar por nombre, profesión o habilidad (Ej. React, Data)...">
+        <input type="text" id="searchTexto" placeholder="Buscar por nombre, profesión o habilidad (Ej. React, Python)...">
         
         <select id="filterUbicacion">
             <option value="">Todas las ubicaciones</option>
@@ -26,6 +26,7 @@
             <option value="Arequipa">Arequipa</option>
             <option value="Huancayo">Huancayo</option>
             <option value="Trujillo">Trujillo</option>
+            <option value="Remoto">Remoto</option>
         </select>
 
         <select id="filterExperiencia">
@@ -33,6 +34,10 @@
             <option value="0-2">0 a 2 años (Junior)</option>
             <option value="3-5">3 a 5 años (Semi-Senior)</option>
             <option value="6+">Más de 5 años (Senior)</option>
+        </select>
+        
+        <select id="filterOrden" disabled>
+            <option value="relevancia">⭐ Ordenado por Mejor Ranking</option>
         </select>
     </div>
 

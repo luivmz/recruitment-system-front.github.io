@@ -174,7 +174,7 @@ function publicarOferta(e) {
 }
 
 // =======================
-// VISTA 3: POSTULANTES
+// VISTA 3: POSTULANTES CON RANKING
 // =======================
 function verPostulantes(ofertaId, ofertaTitulo) {
     currentOfertaId = ofertaId;
@@ -185,46 +185,129 @@ function verPostulantes(ofertaId, ofertaTitulo) {
 }
 
 function renderPostulantes() {
+    const ofertas = JSON.parse(localStorage.getItem("ofertas")) || [];
     const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
     const postulantesData = JSON.parse(localStorage.getItem("postulantes")) || [];
+    
     const container = document.getElementById("postulantesList");
     container.innerHTML = "";
 
-    const postulacionesOferta = postulaciones.filter(p => p.oferta_id === currentOfertaId);
+    // Oferta actual para obtener sus palabras clave
+    const ofertaActual = ofertas.find(o => o.id === currentOfertaId);
+    if (!ofertaActual) return;
 
-    if (postulacionesOferta.length === 0) {
+    // 1. Filtrar postulaciones y cruzar con los datos del perfil
+    let listaParaRanking = postulaciones
+        .filter(p => p.oferta_id === currentOfertaId)
+        .map(postulacion => {
+            const perfil = postulantesData.find(p => p.id === postulacion.postulante_id);
+            return { ...postulacion, perfil: perfil };
+        })
+        .filter(item => item.perfil); // Evitar errores si falta algún dato
+
+    if (listaParaRanking.length === 0) {
         container.innerHTML = "<p>Aún no hay candidatos postulados para esta oferta.</p>";
         return;
     }
 
-    postulacionesOferta.forEach(postulacion => {
-        const candidato = postulantesData.find(p => p.id === postulacion.postulante_id);
-        if(!candidato) return;
+    // ==========================================
+    // 🧠 ALGORITMO DE RANKING
+    // ==========================================
+    const palabrasClave = ofertaActual.titulo.toLowerCase().split(" ").filter(word => word.length > 2);
+
+    listaParaRanking.forEach(item => {
+        let score = 0;
+        const p = item.perfil;
+
+        // A. Puntos Base
+        score += (parseInt(p.experiencia_anios) || 0) * 10;
+        score += (p.habilidades ? p.habilidades.length : 0) * 5;
+
+        // B. Puntos Match con la Oferta
+        palabrasClave.forEach(palabra => {
+            if (p.profesion && p.profesion.toLowerCase().includes(palabra)) {
+                score += 50; 
+            }
+            if (p.habilidades && p.habilidades.some(h => h.toLowerCase().includes(palabra))) {
+                score += 40;
+            }
+        });
+
+        item.score = score;
+    });
+
+    // C. Ordenar de mayor a menor puntaje
+    listaParaRanking.sort((a, b) => b.score - a.score);
+
+    // ==========================================
+    // 🎨 RENDERIZAR RESULTADOS
+    // ==========================================
+    listaParaRanking.forEach((item, index) => {
+        const p = item.perfil;
+        
+        // Convertir habilidades en HTML
+        const habsHTML = (p.habilidades || []).map(h => 
+            `<span style="background: #e9ecef; color: #495057; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; margin-right: 5px; display: inline-block;">${h}</span>`
+        ).join("");
+
+        // Definir clases CSS en línea y textos para las medallas
+        let rankClass = "rank-normal";
+        let medalla = `#${index + 1} en Lista`;
+        let borderStyle = "border: 1px solid #eee;";
+        let badgeStyle = "background: #f1f1f1; color: #333;";
+
+        if (index === 0) { 
+            rankClass = "rank-gold"; 
+            medalla = "🥇 #1 Ideal"; 
+            borderStyle = "border: 2px solid #ffd700; background: linear-gradient(to bottom right, #fffdf0, #ffffff);";
+            badgeStyle = "background: #ffd700; color: #8a6d00;";
+        } else if (index === 1) { 
+            rankClass = "rank-silver"; 
+            medalla = "🥈 #2 Muy Bueno"; 
+            borderStyle = "border: 2px solid #c0c0c0; background: linear-gradient(to bottom right, #f8f8f8, #ffffff);";
+            badgeStyle = "background: #e0e0e0; color: #4a4a4a;";
+        } else if (index === 2) { 
+            rankClass = "rank-bronze"; 
+            medalla = "🥉 #3 Bueno"; 
+            borderStyle = "border: 2px solid #cd7f32; background: linear-gradient(to bottom right, #fffaf0, #ffffff);";
+            badgeStyle = "background: #f4d0a9; color: #8a4a00;";
+        }
 
         container.innerHTML += `
-            <div class="applicant-card">
-                <div class="applicant-info">
-                    <img src="${candidato.foto || 'https://via.placeholder.com/60'}" class="applicant-foto" alt="Foto">
-                    <div class="applicant-details">
-                        <h3>${candidato.nombre} ${candidato.apellidos}</h3>
-                        <p><strong>Profesión:</strong> ${candidato.profesion} | <strong>Exp:</strong> ${candidato.experiencia_anios} años</p>
-                        <p><strong>Educación:</strong> ${candidato.nivel_educacion}</p>
-                        <div style="margin-top: 5px;">
-                            <a href="${candidato.cv_url}" target="_blank" class="btn btn-outline btn-sm">Ver CV</a>
-                            <a href="${candidato.linkedin}" target="_blank" class="btn btn-outline btn-sm">LinkedIn</a>
+            <div class="applicant-card ${rankClass}" style="border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; ${borderStyle}">
+                
+                <div class="applicant-info" style="display: flex; gap: 20px; align-items: flex-start; width: 100%;">
+                    <img src="${p.foto || 'https://via.placeholder.com/60'}" class="applicant-foto" alt="Foto" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
+                    
+                    <div class="applicant-details" style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0 0 5px 0; color: #333;">${p.nombre} ${p.apellidos}</h3>
+                            <span style="font-weight: bold; padding: 4px 10px; border-radius: 12px; font-size: 13px; ${badgeStyle}">${medalla} (${item.score} pts)</span>
+                        </div>
+                        
+                        <p style="margin: 3px 0; font-size: 14px; color: var(--primary, #0056b3); font-weight: bold;">${p.profesion} | Exp: ${p.experiencia_anios} años</p>
+                        <p style="margin: 3px 0; font-size: 13px; color: #666;"><strong>Educación:</strong> ${p.nivel_educacion}</p>
+                        
+                        <div style="margin: 10px 0;">${habsHTML}</div>
+                        
+                        <div style="margin-top: 10px;">
+                            <a href="${p.cv_url}" target="_blank" class="btn btn-outline btn-sm" style="text-decoration: none; padding: 6px 12px; border: 1px solid var(--primary, #0056b3); border-radius: 6px; color: var(--primary, #0056b3); font-size: 13px; margin-right: 8px;">📄 Ver CV</a>
+                            <a href="${p.linkedin}" target="_blank" class="btn btn-outline btn-sm" style="text-decoration: none; padding: 6px 12px; border: 1px solid var(--primary, #0056b3); border-radius: 6px; color: var(--primary, #0056b3); font-size: 13px;">🔗 LinkedIn</a>
                         </div>
                     </div>
                 </div>
-                <div class="applicant-actions">
-                    <label>Estado del proceso:</label>
-                    <select onchange="cambiarEstadoPostulacion(${postulacion.id}, this.value)" 
-                        style="border-color: ${getColorEstado(postulacion.estado)}">
-                        <option value="pendiente" ${postulacion.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
-                        <option value="visto" ${postulacion.estado === 'visto' ? 'selected' : ''}>Visto</option>
-                        <option value="entrevista" ${postulacion.estado === 'entrevista' ? 'selected' : ''}>Entrevista</option>
-                        <option value="rechazado" ${postulacion.estado === 'rechazado' ? 'selected' : ''}>Rechazado</option>
+
+                <div class="applicant-actions" style="margin-left: 20px; min-width: 150px;">
+                    <label style="display: block; margin-bottom: 5px; font-size: 12px; font-weight: bold; color: #555;">Estado del proceso:</label>
+                    <select onchange="cambiarEstadoPostulacion(${item.id}, this.value)" 
+                        style="width: 100%; padding: 8px; border-radius: 6px; font-weight: bold; outline: none; border: 2px solid ${getColorEstado(item.estado)}; color: ${getColorEstado(item.estado)};">
+                        <option value="pendiente" ${item.estado === 'pendiente' ? 'selected' : ''}>⏳ Pendiente</option>
+                        <option value="visto" ${item.estado === 'visto' ? 'selected' : ''}>👁️ Visto</option>
+                        <option value="entrevista" ${item.estado === 'entrevista' ? 'selected' : ''}>📅 Entrevista</option>
+                        <option value="rechazado" ${item.estado === 'rechazado' ? 'selected' : ''}>❌ Rechazado</option>
                     </select>
                 </div>
+
             </div>
         `;
     });
@@ -237,7 +320,7 @@ function cambiarEstadoPostulacion(postulacionId, nuevoEstado) {
     if (index !== -1) {
         postulaciones[index].estado = nuevoEstado;
         localStorage.setItem("postulaciones", JSON.stringify(postulaciones));
-        renderPostulantes(); // Re-renderizar para actualizar el color
+        renderPostulantes(); // Re-renderizar para actualizar el color dinámicamente
     }
 }
 
@@ -254,6 +337,7 @@ function getColorEstado(estado) {
 function cargarCategorias() {
     const categorias = JSON.parse(localStorage.getItem("categorias")) || [];
     const select = document.getElementById("ofCategoria");
+    if(!select) return;
     categorias.forEach(cat => {
         select.innerHTML += `<option value="${cat.id}">${cat.nombre}</option>`;
     });

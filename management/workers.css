@@ -67,6 +67,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .worker-card:hover {
@@ -74,6 +75,25 @@
     box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
+/* =======================
+   SISTEMA DE RANKING
+======================= */
+.rank-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0 auto 15px auto;
+    width: fit-content;
+}
+
+.rank-gold { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+.rank-silver { background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+.rank-bronze { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.rank-normal { background: #f8f9fa; color: #6c757d; border: 1px solid #dee2e6; }
+
+/* Resto de estilos del card */
 .worker-foto {
     width: 90px;
     height: 90px;
@@ -132,9 +152,7 @@
     transition: 0.3s;
 }
 
-.btn-contact:hover {
-    opacity: 0.9;
-}
+.btn-contact:hover { opacity: 0.9; }
 
 /* =======================
    MODAL PERFIL

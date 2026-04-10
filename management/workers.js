@@ -5,15 +5,17 @@ let postulantesData = [];
 let usuariosData = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Validar que el usuario sea empresa o admin (Opcional, pero recomendado)
+    // Validar que el usuario sea empresa o admin
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser || (currentUser.rol !== "empresa" && currentUser.rol !== "admin")) {
         alert("Atención: Esta vista está pensada para Empresas. Es posible que algunas funciones de contacto requieran permisos.");
     }
 
     cargarDatos();
-    renderWorkers(postulantesData);
     configurarFiltros();
+    
+    // Disparamos el filtro inicial para que los ordene/rankee ni bien cargue la página
+    document.getElementById("searchTexto").dispatchEvent(new Event('input'));
 });
 
 // =======================
@@ -25,7 +27,7 @@ function cargarDatos() {
 }
 
 // =======================
-// RENDERIZAR TARJETAS
+// RENDERIZAR TARJETAS CON RANKING
 // =======================
 function renderWorkers(data) {
     const grid = document.getElementById("workersGrid");
@@ -36,12 +38,25 @@ function renderWorkers(data) {
         return;
     }
 
-    data.forEach(postulante => {
+    data.forEach((postulante, index) => {
         // Generar HTML de habilidades
         const skillsHTML = postulante.habilidades.map(skill => `<span class="skill-tag">${skill}</span>`).join("");
 
+        // Determinar Medalla de Ranking (1, 2, 3 o Normal)
+        let rankBadge = "";
+        if (index === 0) {
+            rankBadge = `<div class="rank-badge rank-gold">🥇 Rank #1 (${postulante.score} pts)</div>`;
+        } else if (index === 1) {
+            rankBadge = `<div class="rank-badge rank-silver">🥈 Rank #2 (${postulante.score} pts)</div>`;
+        } else if (index === 2) {
+            rankBadge = `<div class="rank-badge rank-bronze">🥉 Rank #3 (${postulante.score} pts)</div>`;
+        } else {
+            rankBadge = `<div class="rank-badge rank-normal">⭐ Rank #${index + 1} (${postulante.score} pts)</div>`;
+        }
+
         grid.innerHTML += `
             <div class="worker-card">
+                ${rankBadge}
                 <img src="${postulante.foto || 'https://via.placeholder.com/90'}" alt="Foto de ${postulante.nombre}" class="worker-foto">
                 <h3 class="worker-name">${postulante.nombre} ${postulante.apellidos}</h3>
                 <p class="worker-profesion">${postulante.profesion}</p>
@@ -62,27 +77,24 @@ function renderWorkers(data) {
 }
 
 // =======================
-// FILTROS DE BÚSQUEDA
+// FILTROS Y ALGORITMO DE RANKING
 // =======================
 function configurarFiltros() {
     const inputBusqueda = document.getElementById("searchTexto");
     const selectUbicacion = document.getElementById("filterUbicacion");
     const selectExperiencia = document.getElementById("filterExperiencia");
 
-    const filtrar = () => {
-        const texto = inputBusqueda.value.toLowerCase();
+    const filtrarYRankear = () => {
+        const texto = inputBusqueda.value.toLowerCase().trim();
         const ubicacion = selectUbicacion.value;
         const exp = selectExperiencia.value;
 
-        const filtrados = postulantesData.filter(p => {
-            // 1. Filtro de Texto (Busca en nombre, apellidos, profesion y habilidades)
+        // 1. Filtrar los que cumplen con las condiciones estrictas (ubicacion, experiencia)
+        let filtrados = postulantesData.filter(p => {
             const stringBuscable = `${p.nombre} ${p.apellidos} ${p.profesion} ${p.habilidades.join(" ")}`.toLowerCase();
-            const pasaTexto = stringBuscable.includes(texto);
-
-            // 2. Filtro Ubicación
+            const pasaTexto = texto === "" || stringBuscable.includes(texto);
             const pasaUbicacion = ubicacion === "" || p.ubicacion.includes(ubicacion);
 
-            // 3. Filtro Experiencia
             let pasaExp = true;
             if (exp === "0-2") pasaExp = p.experiencia_anios <= 2;
             if (exp === "3-5") pasaExp = p.experiencia_anios >= 3 && p.experiencia_anios <= 5;
@@ -91,13 +103,44 @@ function configurarFiltros() {
             return pasaTexto && pasaUbicacion && pasaExp;
         });
 
+        // 2. Sistema de Puntuación (Scoring) para el Ranking
+        filtrados = filtrados.map(p => {
+            let score = 0;
+
+            // A) Puntos Base: Por experiencia y cantidad de herramientas que domina
+            score += (p.experiencia_anios * 10);
+            score += (p.habilidades.length * 5);
+
+            // B) Puntos por Match Exacto (Si la empresa buscó algo específico)
+            if (texto !== "") {
+                const terminos = texto.split(" ").filter(t => t.length > 0);
+                
+                terminos.forEach(term => {
+                    // Si el término está en su profesión, gana muchos puntos
+                    if (p.profesion.toLowerCase().includes(term)) {
+                        score += 50; 
+                    }
+                    // Si el término coincide con alguna habilidad específica
+                    if (p.habilidades.some(h => h.toLowerCase().includes(term))) {
+                        score += 40;
+                    }
+                });
+            }
+
+            return { ...p, score }; // Retornamos el objeto original agregándole su score
+        });
+
+        // 3. Ordenar arreglo de Mayor a Menor Puntuación
+        filtrados.sort((a, b) => b.score - a.score);
+
+        // 4. Renderizar
         renderWorkers(filtrados);
     };
 
     // Eventos
-    inputBusqueda.addEventListener("input", filtrar);
-    selectUbicacion.addEventListener("change", filtrar);
-    selectExperiencia.addEventListener("change", filtrar);
+    inputBusqueda.addEventListener("input", filtrarYRankear);
+    selectUbicacion.addEventListener("change", filtrarYRankear);
+    selectExperiencia.addEventListener("change", filtrarYRankear);
 }
 
 // =======================
@@ -118,7 +161,7 @@ function abrirPerfil(id) {
         <div class="perfil-header">
             <img src="${postulante.foto}" alt="Foto">
             <div>
-                <h2 style="margin:0;">${postulante.nombre} ${postulante.apellidos}</h2>
+                <h2 style="margin:0;">${postulante.nombre} ${postulante.apellidos} <span style="font-size: 14px; background: #ffeeba; padding: 3px 8px; border-radius: 10px; color: #856404;">⭐ Score: ${postulante.score}</span></h2>
                 <p style="color: var(--primary); font-weight:bold; margin: 5px 0;">${postulante.profesion}</p>
                 <p style="margin:0; font-size: 14px; color: #666;">📍 ${postulante.ubicacion} | 🎓 ${postulante.nivel_educacion}</p>
             </div>
@@ -138,7 +181,7 @@ function abrirPerfil(id) {
             
             <div class="contact-form">
                 <p style="margin-top: 15px; font-weight: bold;">Enviar mensaje directo (Simulación):</p>
-                <textarea id="mensajeContacto" rows="3" placeholder="Hola ${postulante.nombre}, vimos tu perfil y nos gustaría..."></textarea>
+                <textarea id="mensajeContacto" rows="3" placeholder="Hola ${postulante.nombre}, nos impresionó tu perfil (Score: ${postulante.score}) y nos gustaría..."></textarea>
                 <button class="btn-contact" onclick="enviarMensaje('${postulante.nombre}')">Enviar Mensaje a ${postulante.nombre}</button>
             </div>
         </div>
