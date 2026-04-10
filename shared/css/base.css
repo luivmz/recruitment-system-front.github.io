@@ -132,7 +132,7 @@
 }
 
 /* Responsivo para móviles */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         padding: 15px;
@@ -142,4 +142,4 @@
         flex-wrap: wrap;
         justify-content: center;
     }
-}
+} */
