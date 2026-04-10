@@ -1,15 +1,17 @@
 /* Variables CSS Globales */
 
 :root {
-
     /* 🎨 COLORES */
     --primary: #1e293b;
+    --primary-hover: #334155;
     --secondary: #0f172a;
     --accent: #3b82f6;
+    --accent-hover: #2563eb;
     --background: #f8fafc;
     --text: #1e293b;
+    --text-muted: #64748b;
     --white: #ffffff;
-    --gray: #64748b;
+    --gray: #e2e8f0;
 
     /* 📏 ESPACIADOS */
     --spacing-sm: 8px;
@@ -17,11 +19,23 @@
     --spacing-lg: 24px;
 
     /* 🔤 TIPOGRAFÍA */
-    --font-main: Arial, Helvetica, sans-serif;
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
-    /* 🎯 BORDES */
+    /* 🎯 BORDES Y EFECTOS */
     --radius: 8px;
-
-    /* 🌑 SOMBRAS */
+    --radius-lg: 12px;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
     --shadow: 0 4px 10px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+    
+    /* ⏱️ ANIMACIONES */
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
 }

@@ -1,23 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Publicidad</title>
+    <meta charset="UTF-8">
+    <title>Publicidad | TalentoHub</title>
     <link rel="stylesheet" href="../shared/css/variables.css">
     <link rel="stylesheet" href="../shared/css/base.css">
-    <link rel="stylesheet" href="advertising.css">
+    <link rel="stylesheet" href="static.css">
 </head>
 <body>
-<!-- NAVBAR -->
+
 <div id="navbar"></div>
 
-<h1>Bienvenido a nuestra plataforma</h1>
+<main class="static-page-container">
+    <section class="hero-split">
+        <div class="hero-text">
+            <span class="badge-new">Soluciones para Empresas</span>
+            <h1>Haz que tu marca <span class="gradient-text">destaque</span></h1>
+            <p>No solo publiques vacantes, crea una comunidad. Con nuestras herramientas de publicidad, tu empresa llegará al talento que realmente importa.</p>
+            <div class="cta-group">
+                <button class="btn-main" onclick="window.location.href='contact.html'">Empezar ahora</button>
+                <a href="#beneficios" class="link-more">Saber más ↓</a>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="blob-bg"></div> <img src="../shared/assets/images/compu.gif" alt="Animación TalentoHub" class="main-gif">
+        </div>
+    </section>
 
-<p>Encuentra trabajo o recluta talento fácilmente.</p>
+    <section id="beneficios" class="grid-benefits">
+        <div class="b-card">
+            <div class="b-icon">🚀</div>
+            <h3>Alcance Masivo</h3>
+            <p>Tu oferta en el top de búsquedas por 30 días.</p>
+        </div>
+        <div class="b-card">
+            <div class="b-icon">📊</div>
+            <h3>Métricas Reales</h3>
+            <p>Mira cuántas personas ven y guardan tus vacantes.</p>
+        </div>
+        <div class="b-card">
+            <div class="b-icon">✨</div>
+            <h3>Branding Premium</h3>
+            <p>Personaliza tu perfil de empresa con videos y colores.</p>
+        </div>
+    </section>
+</main>
 
-<!-- FOOTER -->
 <div id="footer"></div>
-
 <script src="../shared/js/utils.js"></script>
-
 </body>
 </html>

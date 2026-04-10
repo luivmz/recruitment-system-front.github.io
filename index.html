@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de Reclutamiento GRUPO 1</title>
+    <title>Sistema de Reclutamiento | TalentoHub</title>
 
     <link rel="stylesheet" href="shared/css/base.css">
     <link rel="stylesheet" href="shared/css/variables.css">
@@ -11,84 +11,80 @@
 
 <body>
 
-<!-- NAVBAR -->
 <div id="navbar"></div>
 
-<!-- HERO -->
 <section class="hero">
-    <h1>Encuentra el mejor talento o tu próximo trabajo</h1>
-    <p>Plataforma digital para reclutamiento eficiente</p>
-    <div class="search-box">
-    
-    <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="Buscar empleo, tecnología, empresa o área..."
-    >
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Encuentra el mejor talento o tu próximo trabajo</h1>
+        <p>Conectamos a profesionales excepcionales con las empresas más innovadoras del país.</p>
+        
+        <div class="search-box">
+            <div class="search-input-group">
+                <span>🔍</span>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Buscar empleo, tecnología o empresa..."
+                >
+            </div>
 
-    <select id="categoriaSelect">
-        <option value="">Todas las categorías</option>
-    </select>
+            <div class="search-input-group border-left">
+                <span>📁</span>
+                <select id="categoriaSelect">
+                    <option value="">Todas las categorías</option>
+                </select>
+            </div>
 
-    <select id="ubicacionSelect">
-        <option value="">Todo el Perú</option>
-        <option value="actual">📍 Mi ubicación actual</option>
+            <div class="search-input-group border-left">
+                <span>📍</span>
+                <select id="ubicacionSelect">
+                    <option value="">Todo el Perú</option>
+                    <option value="actual">📍 Mi ubicación actual</option>
+                    <option>Lima</option>
+                    <option>Arequipa</option>
+                    <option>Trujillo</option>
+                    <option>Huancayo</option>
+                    <option>Remoto</option>
+                </select>
+            </div>
 
-        <option>Lima</option>
-        <option>Arequipa</option>
-        <option>Cusco</option>
-        <option>La Libertad</option>
-        <option>Piura</option>
-        <option>Lambayeque</option>
-        <option>Junín</option>
-        <option>Ancash</option>
-        <option>Puno</option>
-        <option>Ica</option>
-        <option>San Martín</option>
-        <option>Cajamarca</option>
-        <option>Huánuco</option>
-        <option>Ayacucho</option>
-        <option>Ucayali</option>
-        <option>Amazonas</option>
-        <option>Huancavelica</option>
-        <option>Moquegua</option>
-        <option>Tacna</option>
-        <option>Tumbes</option>
-        <option>Pasco</option>
-        <option>Madre de Dios</option>
-        <option>Apurímac</option>
-    </select>
-
-    <button onclick="buscarOfertas()">Buscar</button>
-
-</div>
-</section>
-
-<!-- FEATURES -->
-<section class="features">
-    <div class="feature">
-        <h3>Para Candidatos</h3>
-        <p>Postula fácilmente a múltiples empleos.</p>
-    </div>
-
-    <div class="feature">
-        <h3>Para Empresas</h3>
-        <p>Publica ofertas y gestiona talento.</p>
-    </div>
-
-    <div class="feature">
-        <h3>Gestión Inteligente</h3>
-        <p>Optimiza el proceso de selección.</p>
+            <button onclick="buscarOfertas()" class="btn-search">Buscar</button>
+        </div>
     </div>
 </section>
 
+<section class="features-section">
+    <div class="features-header">
+        <h2>¿Por qué elegir TalentoHub?</h2>
+        <p>Una plataforma diseñada para simplificar tu vida, ya seas candidato o empresa.</p>
+    </div>
 
-<!-- FOOTER -->
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">🚀</div>
+            <h3>Para Candidatos</h3>
+            <p>Postula fácilmente a miles de empleos, crea un perfil atractivo y destaca ante los reclutadores.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🏢</div>
+            <h3>Para Empresas</h3>
+            <p>Publica ofertas en minutos, gestiona talento con nuestro ranking inteligente y encuentra a tu candidato ideal.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🤝</div>
+            <h3>Conexión Directa</h3>
+            <p>Comunicación transparente y herramientas de seguimiento para que ninguna oportunidad se pierda.</p>
+        </div>
+    </div>
+</section>
+
 <div id="footer"></div>
 
 <script src="shared/js/mockData.js"></script>
 <script src="shared/js/utils.js"></script>
 <script src="index.js"></script>
-
 </body>
 </html>
