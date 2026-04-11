@@ -4,6 +4,7 @@
 let currentUser = null;
 let currentEmpresaId = null;
 let currentOfertaId = null;
+let questionCount = 0; // Contador para generar IDs únicos en el creador de cuestionarios
 
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Validar Sesión
@@ -29,7 +30,6 @@ function showView(viewId) {
     document.getElementById("view-empresas").classList.add("hidden");
     document.getElementById("view-ofertas").classList.add("hidden");
     document.getElementById("view-postulantes").classList.add("hidden");
-    
     document.getElementById(viewId).classList.remove("hidden");
 }
 
@@ -41,7 +41,6 @@ function renderMisEmpresas() {
     const container = document.getElementById("empresasList");
     container.innerHTML = "";
 
-    // Filtrar empresas que pertenecen al usuario logueado
     const misEmpresas = empresas.filter(e => e.user_id === currentUser.id);
 
     if (misEmpresas.length === 0) {
@@ -76,8 +75,8 @@ function registrarEmpresa(e) {
     let empresas = JSON.parse(localStorage.getItem("empresas")) || [];
     
     const nuevaEmpresa = {
-        id: Date.now(), // ID único
-        user_id: currentUser.id, // Vinculación directa
+        id: Date.now(), 
+        user_id: currentUser.id, 
         ruc: document.getElementById("empRuc").value,
         razon_social: document.getElementById("empRazon").value,
         nombre: document.getElementById("empNombre").value,
@@ -107,7 +106,6 @@ function registrarEmpresa(e) {
 function verOfertas(empresaId, empresaNombre) {
     currentEmpresaId = empresaId;
     document.getElementById("ofertasTitle").innerText = `Ofertas de: ${empresaNombre}`;
-    
     renderOfertas();
     showView('view-ofertas');
 }
@@ -126,7 +124,6 @@ function renderOfertas() {
     }
 
     misOfertas.forEach(oferta => {
-        // Contar postulantes para esta oferta
         const cantPostulantes = postulaciones.filter(p => p.oferta_id === oferta.id).length;
         const badgeClass = oferta.estado === 'activa' ? 'badge-activa' : 'badge-cerrada';
 
@@ -147,13 +144,102 @@ function renderOfertas() {
     });
 }
 
+// =======================
+// LÓGICA DE CREADOR DE CUESTIONARIOS
+// =======================
+function abrirModalNuevaOferta() {
+    document.getElementById("formNuevaOferta").reset();
+    document.getElementById("preguntasContainer").innerHTML = ""; // Limpiar preguntas previas
+    questionCount = 0;
+    openModal('modalNuevaOferta');
+}
+
+function agregarPreguntaUI() {
+    questionCount++;
+    const container = document.getElementById("preguntasContainer");
+    
+    // Por defecto creamos la pregunta con 2 opciones iniciales (A y B)
+    const html = `
+        <div class="pregunta-box" id="cajaPregunta_${questionCount}">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <strong>Pregunta ${questionCount}</strong>
+                <button type="button" style="color:red; background:none; border:none; cursor:pointer;" onclick="this.closest('.pregunta-box').remove()">Eliminar</button>
+            </div>
+            <input type="text" placeholder="Ej: ¿Qué es el Virtual DOM?" class="pregunta-texto full-width" required style="margin-bottom: 10px;">
+            
+            <label style="font-size:12px; color:#555;">Opciones (Selecciona la correcta en el botón redondo):</label>
+            <div class="opciones-container" id="opciones_${questionCount}">
+                <div class="opcion-row">
+                    <input type="radio" name="correcta_${questionCount}" value="0" checked required>
+                    <input type="text" placeholder="Opción A" class="opcion-texto full-width" required>
+                </div>
+                <div class="opcion-row">
+                    <input type="radio" name="correcta_${questionCount}" value="1">
+                    <input type="text" placeholder="Opción B" class="opcion-texto full-width" required>
+                </div>
+            </div>
+            <button type="button" class="btn-add-option" onclick="agregarOpcionUI(${questionCount})">+ Agregar otra opción</button>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+}
+
+function agregarOpcionUI(preguntaId) {
+    const container = document.getElementById(`opciones_${preguntaId}`);
+    const numOpciones = container.children.length;
+    
+    if (numOpciones >= 6) {
+        alert("Máximo 6 opciones por pregunta.");
+        return;
+    }
+
+    const html = `
+        <div class="opcion-row">
+            <input type="radio" name="correcta_${preguntaId}" value="${numOpciones}" required>
+            <input type="text" placeholder="Nueva Opción" class="opcion-texto full-width" required>
+            <button type="button" style="color:red; background:none; border:none; font-weight:bold; cursor:pointer;" onclick="this.parentElement.remove()">X</button>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+}
+
 function publicarOferta(e) {
     e.preventDefault();
     let ofertas = JSON.parse(localStorage.getItem("ofertas")) || [];
     
+    // Recopilar el cuestionario dinámico
+    const cuestionarioFinal = [];
+    const cajasPreguntas = document.querySelectorAll('.pregunta-box');
+    
+    cajasPreguntas.forEach((box, index) => {
+        const preguntaTexto = box.querySelector('.pregunta-texto').value;
+        const opcionesNodes = box.querySelectorAll('.opcion-row');
+        
+        const opcionesArray = [];
+        let respuestaCorrecta = "";
+
+        opcionesNodes.forEach(row => {
+            const textoOp = row.querySelector('.opcion-texto').value;
+            opcionesArray.push(textoOp);
+            
+            // Si este radio está marcado, es la respuesta correcta
+            if (row.querySelector('input[type="radio"]').checked) {
+                respuestaCorrecta = textoOp;
+            }
+        });
+
+        cuestionarioFinal.push({
+            id: `q${index + 1}_${Date.now()}`, // ID único
+            pregunta: preguntaTexto,
+            opciones: opcionesArray,
+            respuesta_correcta: respuestaCorrecta
+        });
+    });
+
+    // Guardar toda la oferta
     const nuevaOferta = {
-        id: Date.now(), // ID único temporal
-        empresa_id: currentEmpresaId, // Vinculada a la empresa actual
+        id: Date.now(),
+        empresa_id: currentEmpresaId,
         titulo: document.getElementById("ofTitulo").value,
         categoria_id: parseInt(document.getElementById("ofCategoria").value),
         descripcion: document.getElementById("ofDesc").value,
@@ -161,25 +247,24 @@ function publicarOferta(e) {
         modalidad: document.getElementById("ofModalidad").value,
         ubicacion: document.getElementById("ofUbicacion").value,
         estado: "activa",
-        fecha_creacion: new Date().toISOString().split('T')[0] // YYYY-MM-DD
+        fecha_creacion: new Date().toISOString().split('T')[0],
+        cuestionario: cuestionarioFinal // Se guarda el examen aquí
     };
 
     ofertas.push(nuevaOferta);
     localStorage.setItem("ofertas", JSON.stringify(ofertas));
     
     closeModal('modalNuevaOferta');
-    document.getElementById("formNuevaOferta").reset();
     renderOfertas();
-    alert("¡Oferta publicada exitosamente!");
+    alert("¡Oferta publicada exitosamente con su cuestionario!");
 }
 
 // =======================
-// VISTA 3: POSTULANTES CON RANKING
+// VISTA 3: POSTULANTES Y RANKING
 // =======================
 function verPostulantes(ofertaId, ofertaTitulo) {
     currentOfertaId = ofertaId;
     document.getElementById("postulantesTitle").innerText = `Candidatos para: ${ofertaTitulo}`;
-    
     renderPostulantes();
     showView('view-postulantes');
 }
@@ -192,108 +277,100 @@ function renderPostulantes() {
     const container = document.getElementById("postulantesList");
     container.innerHTML = "";
 
-    // Oferta actual para obtener sus palabras clave
     const ofertaActual = ofertas.find(o => o.id === currentOfertaId);
     if (!ofertaActual) return;
 
-    // 1. Filtrar postulaciones y cruzar con los datos del perfil
     let listaParaRanking = postulaciones
         .filter(p => p.oferta_id === currentOfertaId)
         .map(postulacion => {
             const perfil = postulantesData.find(p => p.id === postulacion.postulante_id);
             return { ...postulacion, perfil: perfil };
         })
-        .filter(item => item.perfil); // Evitar errores si falta algún dato
+        .filter(item => item.perfil);
 
     if (listaParaRanking.length === 0) {
         container.innerHTML = "<p>Aún no hay candidatos postulados para esta oferta.</p>";
         return;
     }
 
-    // ==========================================
-    // 🧠 ALGORITMO DE RANKING
-    // ==========================================
+    // ALGORITMO MATCH (Se conserva intacto)
     const palabrasClave = ofertaActual.titulo.toLowerCase().split(" ").filter(word => word.length > 2);
 
     listaParaRanking.forEach(item => {
         let score = 0;
         const p = item.perfil;
-
-        // A. Puntos Base
         score += (parseInt(p.experiencia_anios) || 0) * 10;
         score += (p.habilidades ? p.habilidades.length : 0) * 5;
 
-        // B. Puntos Match con la Oferta
         palabrasClave.forEach(palabra => {
-            if (p.profesion && p.profesion.toLowerCase().includes(palabra)) {
-                score += 50; 
-            }
-            if (p.habilidades && p.habilidades.some(h => h.toLowerCase().includes(palabra))) {
-                score += 40;
-            }
+            if (p.profesion && p.profesion.toLowerCase().includes(palabra)) score += 50; 
+            if (p.habilidades && p.habilidades.some(h => h.toLowerCase().includes(palabra))) score += 40;
         });
-
         item.score = score;
     });
 
-    // C. Ordenar de mayor a menor puntaje
     listaParaRanking.sort((a, b) => b.score - a.score);
 
-    // ==========================================
-    // 🎨 RENDERIZAR RESULTADOS
-    // ==========================================
+    // RENDERIZAR
     listaParaRanking.forEach((item, index) => {
         const p = item.perfil;
         
-        // Convertir habilidades en HTML
-        const habsHTML = (p.habilidades || []).map(h => 
-            `<span style="background: #e9ecef; color: #495057; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; margin-right: 5px; display: inline-block;">${h}</span>`
-        ).join("");
+        // Bloque del Cuestionario
+        let bloqueEvaluacion = "";
+        const totalPreguntas = ofertaActual.cuestionario ? ofertaActual.cuestionario.length : 0;
+        
+        if (totalPreguntas > 0) {
+            const puntaje = item.puntaje_cuestionario || 0;
+            const porcentaje = Math.round((puntaje / totalPreguntas) * 100);
+            let colorScore = porcentaje >= 70 ? "green" : (porcentaje >= 40 ? "orange" : "red");
 
-        // Definir clases CSS en línea y textos para las medallas
+            bloqueEvaluacion = `
+                <div class="evaluacion-card">
+                    <div class="evaluacion-score" style="color: ${colorScore}">
+                        📊 Score Cuestionario: ${puntaje} / ${totalPreguntas} aciertos (${porcentaje}%)
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="verDetalleCuestionario(${item.id})">Ver detalle de respuestas correctas/errores</button>
+                </div>
+            `;
+        } else {
+            bloqueEvaluacion = `<p style="font-size:12px; color:#999; margin-top:10px;">Sin cuestionario técnico asignado.</p>`;
+        }
+
+        // Estilos Medallas
         let rankClass = "rank-normal";
         let medalla = `#${index + 1} en Lista`;
         let borderStyle = "border: 1px solid #eee;";
         let badgeStyle = "background: #f1f1f1; color: #333;";
 
         if (index === 0) { 
-            rankClass = "rank-gold"; 
-            medalla = "🥇 #1 Ideal"; 
+            rankClass = "rank-gold"; medalla = "🥇 #1 Ideal"; 
             borderStyle = "border: 2px solid #ffd700; background: linear-gradient(to bottom right, #fffdf0, #ffffff);";
             badgeStyle = "background: #ffd700; color: #8a6d00;";
         } else if (index === 1) { 
-            rankClass = "rank-silver"; 
-            medalla = "🥈 #2 Muy Bueno"; 
+            rankClass = "rank-silver"; medalla = "🥈 #2 Muy Bueno"; 
             borderStyle = "border: 2px solid #c0c0c0; background: linear-gradient(to bottom right, #f8f8f8, #ffffff);";
             badgeStyle = "background: #e0e0e0; color: #4a4a4a;";
         } else if (index === 2) { 
-            rankClass = "rank-bronze"; 
-            medalla = "🥉 #3 Bueno"; 
+            rankClass = "rank-bronze"; medalla = "🥉 #3 Bueno"; 
             borderStyle = "border: 2px solid #cd7f32; background: linear-gradient(to bottom right, #fffaf0, #ffffff);";
             badgeStyle = "background: #f4d0a9; color: #8a4a00;";
         }
 
         container.innerHTML += `
-            <div class="applicant-card ${rankClass}" style="border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; ${borderStyle}">
+            <div class="applicant-card ${rankClass}" style="border-radius: 10px; padding: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-start; ${borderStyle}">
                 
-                <div class="applicant-info" style="display: flex; gap: 20px; align-items: flex-start; width: 100%;">
+                <div class="applicant-info" style="display: flex; gap: 20px; width: 100%;">
                     <img src="${p.foto || 'https://via.placeholder.com/60'}" class="applicant-foto" alt="Foto" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
                     
                     <div class="applicant-details" style="flex: 1;">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 style="margin: 0 0 5px 0; color: #333;">${p.nombre} ${p.apellidos}</h3>
-                            <span style="font-weight: bold; padding: 4px 10px; border-radius: 12px; font-size: 13px; ${badgeStyle}">${medalla} (${item.score} pts)</span>
+                            <span style="font-weight: bold; padding: 4px 10px; border-radius: 12px; font-size: 13px; ${badgeStyle}">${medalla} (Match: ${item.score} pts)</span>
                         </div>
                         
-                        <p style="margin: 3px 0; font-size: 14px; color: var(--primary, #0056b3); font-weight: bold;">${p.profesion} | Exp: ${p.experiencia_anios} años</p>
-                        <p style="margin: 3px 0; font-size: 13px; color: #666;"><strong>Educación:</strong> ${p.nivel_educacion}</p>
+                        <p style="margin: 3px 0; font-size: 14px; color: var(--primary); font-weight: bold;">${p.profesion} | Exp: ${p.experiencia_anios} años</p>
                         
-                        <div style="margin: 10px 0;">${habsHTML}</div>
-                        
-                        <div style="margin-top: 10px;">
-                            <a href="${p.cv_url}" target="_blank" class="btn btn-outline btn-sm" style="text-decoration: none; padding: 6px 12px; border: 1px solid var(--primary, #0056b3); border-radius: 6px; color: var(--primary, #0056b3); font-size: 13px; margin-right: 8px;">📄 Ver CV</a>
-                            <a href="${p.linkedin}" target="_blank" class="btn btn-outline btn-sm" style="text-decoration: none; padding: 6px 12px; border: 1px solid var(--primary, #0056b3); border-radius: 6px; color: var(--primary, #0056b3); font-size: 13px;">🔗 LinkedIn</a>
-                        </div>
+                        ${bloqueEvaluacion}
                     </div>
                 </div>
 
@@ -313,6 +390,79 @@ function renderPostulantes() {
     });
 }
 
+// =======================
+// MODAL: CORRECCIÓN DE CUESTIONARIO
+// =======================
+function verDetalleCuestionario(postulacionId) {
+    const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
+    const ofertas = JSON.parse(localStorage.getItem("ofertas")) || [];
+    
+    const postulacion = postulaciones.find(p => p.id === postulacionId);
+    const oferta = ofertas.find(o => o.id === postulacion.oferta_id);
+    
+    const container = document.getElementById("detalleCuestionarioContenido");
+    container.innerHTML = "";
+
+    if (!oferta.cuestionario || oferta.cuestionario.length === 0) {
+        container.innerHTML = "<p>Esta oferta no contenía cuestionario técnico.</p>";
+        openModal('modalDetalleCuestionario');
+        return;
+    }
+
+    if (!postulacion.respuestas_cuestionario) {
+        container.innerHTML = "<p>El candidato postuló antes de que se implementara el cuestionario o no lo resolvió.</p>";
+        openModal('modalDetalleCuestionario');
+        return;
+    }
+
+    // Dibujar cada pregunta y evaluarla
+    oferta.cuestionario.forEach((preguntaDoc, index) => {
+        // Buscar la respuesta que dio el usuario a esta pregunta en particular
+        const respuestaUser = postulacion.respuestas_cuestionario.find(r => r.pregunta_id === preguntaDoc.id);
+        const respondioCorrecto = respuestaUser ? respuestaUser.es_correcta : false;
+
+        let iconStatus = respondioCorrecto ? "✅ CORRECTO" : "❌ INCORRECTO";
+        let colorS = respondioCorrecto ? "color: green;" : "color: red;";
+
+        let htmlPregunta = `
+            <div class="q-detail-box">
+                <p style="margin-top:0; font-weight:bold;">${index + 1}. ${preguntaDoc.pregunta} <span style="float:right; font-size:12px; ${colorS}">${iconStatus}</span></p>
+                <ul style="list-style: none; padding: 0; margin-top: 10px;">
+        `;
+
+        // Dibujar las alternativas pintadas
+        preguntaDoc.opciones.forEach(opcionTexto => {
+            let itemClass = "padding: 8px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #ccc; font-size: 14px;";
+            let checkIcon = "";
+
+            const esLaCorrecta = (opcionTexto === preguntaDoc.respuesta_correcta);
+            const fueMarcadaPorUsuario = respuestaUser && (opcionTexto === respuestaUser.respuesta_usuario);
+
+            if (esLaCorrecta && fueMarcadaPorUsuario) {
+                // Acierto (Verde)
+                itemClass += " background: #d4edda; border-color: #c3e6cb; color: #155724; font-weight: bold;";
+                checkIcon = " (La eligió)";
+            } else if (fueMarcadaPorUsuario && !esLaCorrecta) {
+                // Se equivocó (Rojo)
+                itemClass += " background: #f8d7da; border-color: #f5c6cb; color: #721c24; text-decoration: line-through;";
+                checkIcon = " (Marcó esta)";
+            } else if (esLaCorrecta && !fueMarcadaPorUsuario) {
+                // Era la correcta pero no la marcó (Gris resaltado)
+                itemClass += " background: #e2e3e5; border-color: #d6d8db; font-weight: bold;";
+                checkIcon = " 👉 (Respuesta Esperada)";
+            }
+
+            htmlPregunta += `<li style="${itemClass}">${opcionTexto} ${checkIcon}</li>`;
+        });
+
+        htmlPregunta += `</ul></div>`;
+        container.innerHTML += htmlPregunta;
+    });
+
+    openModal('modalDetalleCuestionario');
+}
+
+
 function cambiarEstadoPostulacion(postulacionId, nuevoEstado) {
     let postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
     const index = postulaciones.findIndex(p => p.id === postulacionId);
@@ -320,7 +470,7 @@ function cambiarEstadoPostulacion(postulacionId, nuevoEstado) {
     if (index !== -1) {
         postulaciones[index].estado = nuevoEstado;
         localStorage.setItem("postulaciones", JSON.stringify(postulaciones));
-        renderPostulantes(); // Re-renderizar para actualizar el color dinámicamente
+        renderPostulantes(); 
     }
 }
 
@@ -328,7 +478,7 @@ function getColorEstado(estado) {
     if(estado === 'visto') return '#3498db';
     if(estado === 'entrevista') return '#2ecc71';
     if(estado === 'rechazado') return '#e74c3c';
-    return '#f39c12'; // Pendiente
+    return '#f39c12'; 
 }
 
 // =======================

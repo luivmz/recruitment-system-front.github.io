@@ -191,102 +191,460 @@ const DB = {
         {
             id: 501, empresa_id: 1, titulo: "Backend Developer Senior", categoria_id: 1,
             descripcion: "Buscamos experto en microservicios y bases de datos relacionales.",
-            sueldo: 5500, modalidad: "Remoto", ubicacion: "Remoto", estado: "activa", fecha_creacion: "2026-04-01"
+            sueldo: 5500, modalidad: "Remoto", ubicacion: "Remoto", estado: "activa", fecha_creacion: "2026-04-01",
+            cuestionario: [
+                {
+                    id: "q1_501",
+                    pregunta: "¿Qué patrón es fundamental para la comunicación asíncrona entre microservicios?",
+                    opciones: ["Llamadas síncronas HTTP", "Arquitectura dirigida por eventos (Mensajería)", "Uso de una base de datos centralizada", "WebSockets exclusivos"],
+                    respuesta_correcta: "Arquitectura dirigida por eventos (Mensajería)"
+                },
+                {
+                    id: "q2_501",
+                    pregunta: "¿Qué significan las siglas ACID en el contexto de bases de datos relacionales?",
+                    opciones: ["Asynchronous, Concurrent, Isolated, Distributed", "Atomicidad, Consistencia, Aislamiento, Durabilidad", "Array, Cache, Integer, Double", "Access, Control, Identity, Data"],
+                    respuesta_correcta: "Atomicidad, Consistencia, Aislamiento, Durabilidad"
+                },
+                {
+                    id: "q3_501",
+                    pregunta: "¿Qué herramienta se usa comúnmente para la orquestación de contenedores?",
+                    opciones: ["Docker Compose", "Kubernetes", "Jenkins", "Ansible"],
+                    respuesta_correcta: "Kubernetes"
+                },
+                {
+                    id: "q4_501",
+                    pregunta: "¿Cuál es el propósito principal de un API Gateway en una arquitectura de microservicios?",
+                    opciones: ["Crear bases de datos", "Enrutar, autorizar y gestionar el tráfico hacia los microservicios", "Escribir el código frontend", "Compilar las imágenes de Docker"],
+                    respuesta_correcta: "Enrutar, autorizar y gestionar el tráfico hacia los microservicios"
+                },
+                {
+                    id: "q5_501",
+                    pregunta: "¿Qué significa la 'normalización' en una base de datos relacional?",
+                    opciones: ["Convertir todos los textos a minúsculas", "Hacer copias de seguridad diarias", "Organizar datos para reducir la redundancia e integridad de datos", "Aumentar la velocidad de lectura duplicando datos"],
+                    respuesta_correcta: "Organizar datos para reducir la redundancia e integridad de datos"
+                },
+                {
+                    id: "q6_501",
+                    pregunta: "¿Qué patrón de diseño permite a un servicio manejar fallos en dependencias externas sin bloquearse o agotar recursos?",
+                    opciones: ["Singleton", "Circuit Breaker", "Factory Method", "Observer"],
+                    respuesta_correcta: "Circuit Breaker"
+                }
+            ]
         },
         {
             id: 502, empresa_id: 1, titulo: "Analista de Sistemas Jr", categoria_id: 1,
             descripcion: "Oportunidad para egresados con ganas de aprender arquitecturas cloud.",
-            sueldo: 2500, modalidad: "Híbrido", ubicacion: "Huancayo, Perú", estado: "activa", fecha_creacion: "2026-04-05"
+            sueldo: 2500, modalidad: "Híbrido", ubicacion: "Huancayo, Perú", estado: "activa", fecha_creacion: "2026-04-05",
+            cuestionario: [
+                {
+                    id: "q1_502",
+                    pregunta: "¿Qué significan las siglas IaaS en Cloud Computing?",
+                    opciones: ["Internet as a Service", "Infrastructure as a Service", "Integration as a System", "Identity as a Service"],
+                    respuesta_correcta: "Infrastructure as a Service"
+                },
+                {
+                    id: "q2_502",
+                    pregunta: "¿Cuál es el modelo principal de despliegue en la nube donde los recursos se comparten entre varios clientes sobre internet?",
+                    opciones: ["Nube Privada", "Nube Pública", "On-Premise", "Servidor Local"],
+                    respuesta_correcta: "Nube Pública"
+                },
+                {
+                    id: "q3_502",
+                    pregunta: "¿Qué lenguaje estándar se usa ampliamente para el modelado visual de sistemas y procesos?",
+                    opciones: ["HTML", "UML", "CSS", "SQL"],
+                    respuesta_correcta: "UML"
+                },
+                {
+                    id: "q4_502",
+                    pregunta: "¿Cuál es el propósito del levantamiento de requerimientos en el desarrollo de software?",
+                    opciones: ["Codificar la base de datos", "Diseñar los colores de la aplicación", "Entender y documentar qué debe hacer el sistema para satisfacer al cliente", "Comprar servidores físicos"],
+                    respuesta_correcta: "Entender y documentar qué debe hacer el sistema para satisfacer al cliente"
+                },
+                {
+                    id: "q5_502",
+                    pregunta: "¿Qué es la escalabilidad horizontal?",
+                    opciones: ["Añadir más memoria RAM a un servidor", "Añadir más instancias o servidores para distribuir la carga", "Cambiar el monitor por uno más ancho", "Reducir el tamaño de la base de datos"],
+                    respuesta_correcta: "Añadir más instancias o servidores para distribuir la carga"
+                },
+                {
+                    id: "q6_502",
+                    pregunta: "¿Qué metodología ágil utiliza 'Sprints' como iteraciones de trabajo?",
+                    opciones: ["Cascada (Waterfall)", "Scrum", "V-Model", "RUP"],
+                    respuesta_correcta: "Scrum"
+                }
+            ]
         },
         {
             id: 503, empresa_id: 2, titulo: "UX Designer Pro", categoria_id: 2,
             descripcion: "Rediseño de plataformas e-commerce a gran escala.",
-            sueldo: 4200, modalidad: "Presencial", ubicacion: "Lima, Perú", estado: "activa", fecha_creacion: "2026-04-07"
+            sueldo: 4200, modalidad: "Presencial", ubicacion: "Lima, Perú", estado: "activa", fecha_creacion: "2026-04-07",
+            cuestionario: [
+                {
+                    id: "q1_503",
+                    pregunta: "¿Qué métrica es fundamental para medir el éxito de diseño en un e-commerce?",
+                    opciones: ["Cantidad de colores usados", "Tasa de conversión", "Líneas de código CSS", "Número de animaciones"],
+                    respuesta_correcta: "Tasa de conversión"
+                },
+                {
+                    id: "q2_503",
+                    pregunta: "¿Cuál de los siguientes es un principio heurístico de usabilidad de Jakob Nielsen?",
+                    opciones: ["Uso exclusivo de iconos sin texto", "Visibilidad del estado del sistema", "Ocultar botones importantes", "Música de fondo automática"],
+                    respuesta_correcta: "Visibilidad del estado del sistema"
+                },
+                {
+                    id: "q3_503",
+                    pregunta: "¿Qué es el 'Card Sorting'?",
+                    opciones: ["Una técnica de investigación para descubrir cómo los usuarios agrupan la información", "Un juego de cartas para programadores", "Un plugin de Figma", "Una paleta de colores"],
+                    respuesta_correcta: "Una técnica de investigación para descubrir cómo los usuarios agrupan la información"
+                },
+                {
+                    id: "q4_503",
+                    pregunta: "¿Por qué es crucial el enfoque 'Mobile First' en e-commerce actualmente?",
+                    opciones: ["Porque programar para móviles es más rápido", "Porque la mayoría del tráfico de usuarios proviene de dispositivos móviles", "Porque los monitores de PC están obsoletos", "Porque Apple lo exige"],
+                    respuesta_correcta: "Porque la mayoría del tráfico de usuarios proviene de dispositivos móviles"
+                },
+                {
+                    id: "q5_503",
+                    pregunta: "¿Qué elemento es crítico optimizar en la página de 'Checkout' para reducir el abandono del carrito?",
+                    opciones: ["Un proceso claro, seguro y sin distracciones innecesarias", "Añadir pop-ups promocionales", "Poner enlaces a redes sociales", "Obligar al usuario a leer términos legales largos"],
+                    respuesta_correcta: "Un proceso claro, seguro y sin distracciones innecesarias"
+                },
+                {
+                    id: "q6_503",
+                    pregunta: "¿Qué evalúa principalmente un mapa de calor (Heatmap)?",
+                    opciones: ["La temperatura del servidor", "Las zonas de la pantalla donde los usuarios hacen más clic o prestan más atención", "La velocidad de carga de la web", "El tamaño de las imágenes"],
+                    respuesta_correcta: "Las zonas de la pantalla donde los usuarios hacen más clic o prestan más atención"
+                }
+            ]
         },
         {
             id: 504, empresa_id: 1, titulo: "Especialista en Redes", categoria_id: 4,
             descripcion: "Configuración de firewalls y seguridad perimetral.",
-            sueldo: 3800, modalidad: "Híbrido", ubicacion: "Huancayo, Perú", estado: "cerrada", fecha_creacion: "2026-03-20"
+            sueldo: 3800, modalidad: "Híbrido", ubicacion: "Huancayo, Perú", estado: "cerrada", fecha_creacion: "2026-03-20",
+            cuestionario: [
+                {
+                    id: "q1_504",
+                    pregunta: "¿En qué capa del modelo OSI opera principalmente un router?",
+                    opciones: ["Capa 1 (Física)", "Capa 2 (Enlace de datos)", "Capa 3 (Red)", "Capa 7 (Aplicación)"],
+                    respuesta_correcta: "Capa 3 (Red)"
+                },
+                {
+                    id: "q2_504",
+                    pregunta: "¿Qué protocolo se utiliza comúnmente para asignar direcciones IP de forma dinámica en una LAN?",
+                    opciones: ["DNS", "FTP", "DHCP", "SMTP"],
+                    respuesta_correcta: "DHCP"
+                },
+                {
+                    id: "q3_504",
+                    pregunta: "¿Qué es una DMZ en arquitectura de redes de seguridad?",
+                    opciones: ["Una red local sin contraseñas", "Una zona desmilitarizada que expone servicios externos y aísla la red interna protegida", "Un software antivirus", "Un cable de fibra óptica"],
+                    respuesta_correcta: "Una zona desmilitarizada que expone servicios externos y aísla la red interna protegida"
+                },
+                {
+                    id: "q4_504",
+                    pregunta: "¿Qué tipo de firewall tiene la capacidad de inspeccionar el estado de las conexiones activas?",
+                    opciones: ["Packet Filtering", "Proxy Firewall", "Stateful Inspection Firewall", "Antivirus Local"],
+                    respuesta_correcta: "Stateful Inspection Firewall"
+                },
+                {
+                    id: "q5_504",
+                    pregunta: "¿Cuál es el propósito principal de una VPN (Virtual Private Network)?",
+                    opciones: ["Crear una conexión segura y cifrada a través de una red pública (como internet)", "Aumentar la velocidad de descarga", "Bloquear anuncios web", "Reemplazar al router Wi-Fi"],
+                    respuesta_correcta: "Crear una conexión segura y cifrada a través de una red pública (como internet)"
+                },
+                {
+                    id: "q6_504",
+                    pregunta: "¿Qué comando de consola se utiliza para rastrear la ruta que toman los paquetes desde el origen hasta el destino?",
+                    opciones: ["ping", "ipconfig", "traceroute (o tracert)", "netstat"],
+                    respuesta_correcta: "traceroute (o tracert)"
+                }
+            ]
         },
         {
             id: 505, empresa_id: 3, titulo: "Data Scientist", categoria_id: 5,
             descripcion: "Modelado predictivo y análisis de grandes volúmenes de datos.",
-            sueldo: 6000, modalidad: "Presencial", ubicacion: "Arequipa, Perú", estado: "activa", fecha_creacion: "2026-04-08"
+            sueldo: 6000, modalidad: "Presencial", ubicacion: "Arequipa, Perú", estado: "activa", fecha_creacion: "2026-04-08",
+            cuestionario: [
+                {
+                    id: "q1_505",
+                    pregunta: "¿Qué algoritmo estadístico es el más adecuado para resolver problemas de clasificación binaria?",
+                    opciones: ["Regresión Lineal", "K-Means", "Regresión Logística", "PCA"],
+                    respuesta_correcta: "Regresión Logística"
+                },
+                {
+                    id: "q2_505",
+                    pregunta: "¿Qué significa el concepto de 'Overfitting' (Sobreajuste) al entrenar un modelo?",
+                    opciones: ["Cuando el modelo es muy simple y no aprende", "Cuando el modelo memoriza los datos de entrenamiento y falla al predecir datos nuevos", "Cuando la base de datos es muy grande", "Cuando el modelo tarda poco en entrenar"],
+                    respuesta_correcta: "Cuando el modelo memoriza los datos de entrenamiento y falla al predecir datos nuevos"
+                },
+                {
+                    id: "q3_505",
+                    pregunta: "¿Cuál es la librería más utilizada en Python para la manipulación y análisis de estructuras de datos (DataFrames)?",
+                    opciones: ["TensorFlow", "Django", "Pandas", "Flask"],
+                    respuesta_correcta: "Pandas"
+                },
+                {
+                    id: "q4_505",
+                    pregunta: "¿Para qué sirve el algoritmo PCA (Análisis de Componentes Principales)?",
+                    opciones: ["Para conectarse a bases de datos SQL", "Para reducir la dimensionalidad de un conjunto de datos perdiendo la menor información posible", "Para entrenar redes neuronales profundas", "Para crear gráficos de barras"],
+                    respuesta_correcta: "Para reducir la dimensionalidad de un conjunto de datos perdiendo la menor información posible"
+                },
+                {
+                    id: "q5_505",
+                    pregunta: "¿Qué métrica es más representativa para evaluar un modelo de clasificación si las clases están muy desbalanceadas?",
+                    opciones: ["Accuracy (Exactitud)", "F1-Score", "Mean Squared Error (MSE)", "R2"],
+                    respuesta_correcta: "F1-Score"
+                },
+                {
+                    id: "q6_505",
+                    pregunta: "¿Qué plataforma o framework se utiliza comúnmente para el procesamiento de Big Data en clústeres distribuidos?",
+                    opciones: ["Apache Spark", "Excel", "SQLite", "Jupyter Notebook"],
+                    respuesta_correcta: "Apache Spark"
+                }
+            ]
         },
         {
             id: 506, empresa_id: 4, titulo: "Frontend Developer (Angular)", categoria_id: 1,
             descripcion: "Desarrollo de interfaces dinámicas para aplicaciones bancarias.",
-            sueldo: 4500, modalidad: "Remoto", ubicacion: "Remoto", estado: "activa", fecha_creacion: "2026-04-02"
+            sueldo: 4500, modalidad: "Remoto", ubicacion: "Remoto", estado: "activa", fecha_creacion: "2026-04-02",
+            cuestionario: [
+                {
+                    id: "q1_506",
+                    pregunta: "¿Qué lenguaje es la base principal y recomendada para desarrollar aplicaciones en Angular?",
+                    opciones: ["JavaScript puro", "TypeScript", "Python", "PHP"],
+                    respuesta_correcta: "TypeScript"
+                },
+                {
+                    id: "q2_506",
+                    pregunta: "¿Qué decorador se utiliza en Angular para definir la clase de un componente?",
+                    opciones: ["@Injectable", "@NgModule", "@Component", "@Directive"],
+                    respuesta_correcta: "@Component"
+                },
+                {
+                    id: "q3_506",
+                    pregunta: "¿Qué patrón de diseño utiliza Angular de manera nativa para proveer servicios a los componentes?",
+                    opciones: ["MVC Clásico", "Dependency Injection (Inyección de Dependencias)", "Singleton global", "Factory Method"],
+                    respuesta_correcta: "Dependency Injection (Inyección de Dependencias)"
+                },
+                {
+                    id: "q4_506",
+                    pregunta: "¿Qué método del ciclo de vida (Lifecycle hook) se ejecuta justo después de que Angular inicializa las propiedades enlazadas a datos (Inputs)?",
+                    opciones: ["ngOnDestroy", "ngAfterViewInit", "ngOnInit", "ngDoCheck"],
+                    respuesta_correcta: "ngOnInit"
+                },
+                {
+                    id: "q5_506",
+                    pregunta: "¿Qué biblioteca integra Angular por defecto para manejar la programación reactiva y operaciones asíncronas?",
+                    opciones: ["Redux", "Axios", "RxJS", "jQuery"],
+                    respuesta_correcta: "RxJS"
+                },
+                {
+                    id: "q6_506",
+                    pregunta: "¿Cuál es la sintaxis correcta en el HTML de Angular para enlazar un evento (Event Binding) como un clic a una función?",
+                    opciones: ["onclick='metodo()'", "(click)='metodo()'", "[click]='metodo()'", "{{ click: metodo() }}"],
+                    respuesta_correcta: "(click)='metodo()'"
+                }
+            ]
         },
         {
             id: 507, empresa_id: 2, titulo: "Digital Marketing Manager", categoria_id: 3,
             descripcion: "Gestión de pautas digitales y estrategia de contenidos.",
-            sueldo: 3500, modalidad: "Híbrido", ubicacion: "Lima, Perú", estado: "activa", fecha_creacion: "2026-04-06"
+            sueldo: 3500, modalidad: "Híbrido", ubicacion: "Lima, Perú", estado: "activa", fecha_creacion: "2026-04-06",
+            cuestionario: [
+                {
+                    id: "q1_507",
+                    pregunta: "¿Qué indica la métrica CTR (Click-Through Rate)?",
+                    opciones: ["El costo de la campaña", "El porcentaje de usuarios que hicieron clic en un enlace respecto al total de impresiones", "La cantidad de ventas realizadas", "El tiempo que un usuario pasa en la web"],
+                    respuesta_correcta: "El porcentaje de usuarios que hicieron clic en un enlace respecto al total de impresiones"
+                },
+                {
+                    id: "q2_507",
+                    pregunta: "¿Cuál es la diferencia principal entre SEO y SEM?",
+                    opciones: ["El SEO es para redes sociales y el SEM para web", "El SEO busca posicionamiento orgánico gratuito y el SEM involucra anuncios pagados", "El SEM es más lento que el SEO", "Ambos son exactamente lo mismo"],
+                    respuesta_correcta: "El SEO busca posicionamiento orgánico gratuito y el SEM involucra anuncios pagados"
+                },
+                {
+                    id: "q3_507",
+                    pregunta: "¿Qué representa el 'Funnel' o Embudo de Conversión?",
+                    opciones: ["Una herramienta de diseño gráfico", "Las etapas por las que pasa un usuario desde que conoce la marca hasta que realiza una compra", "El algoritmo de Google", "La base de datos de clientes"],
+                    respuesta_correcta: "Las etapas por las que pasa un usuario desde que conoce la marca hasta que realiza una compra"
+                },
+                {
+                    id: "q4_507",
+                    pregunta: "¿Qué es una 'Landing Page' (Página de aterrizaje)?",
+                    opciones: ["La página de 'Quiénes somos'", "Una página web diseñada específicamente para convertir visitantes en leads o ventas", "El perfil de Instagram de la empresa", "La página de error 404"],
+                    respuesta_correcta: "Una página web diseñada específicamente para convertir visitantes en leads o ventas"
+                },
+                {
+                    id: "q5_507",
+                    pregunta: "¿Qué indicador mide el Costo de Adquisición de Cliente?",
+                    opciones: ["CAC", "ROI", "LTV", "ROAS"],
+                    respuesta_correcta: "CAC"
+                },
+                {
+                    id: "q6_507",
+                    pregunta: "¿Cuál de estas herramientas se usa comúnmente para la gestión unificada de redes sociales?",
+                    opciones: ["Google Search Console", "Hootsuite (o Buffer)", "Figma", "Visual Studio Code"],
+                    respuesta_correcta: "Hootsuite (o Buffer)"
+                }
+            ]
         },
         {
             id: 508, empresa_id: 4, titulo: "Técnico Soporte IT", categoria_id: 1,
             descripcion: "Soporte técnico a usuarios internos y mantenimiento de equipos.",
-            sueldo: 1800, modalidad: "Presencial", ubicacion: "Trujillo, Perú", estado: "activa", fecha_creacion: "2026-04-08"
+            sueldo: 1800, modalidad: "Presencial", ubicacion: "Trujillo, Perú", estado: "activa", fecha_creacion: "2026-04-08",
+            cuestionario: [
+                {
+                    id: "q1_508",
+                    pregunta: "¿Qué significan las siglas RAM?",
+                    opciones: ["Read Access Module", "Random Access Memory", "Run Action Mode", "Routing Application Manager"],
+                    respuesta_correcta: "Random Access Memory"
+                },
+                {
+                    id: "q2_508",
+                    pregunta: "¿Cuál es el primer paso recomendado en la metodología de resolución de problemas (troubleshooting)?",
+                    opciones: ["Formatear la computadora", "Reemplazar el disco duro", "Identificar el problema comunicándose con el usuario y replicando el error", "Comprar una licencia de software nuevo"],
+                    respuesta_correcta: "Identificar el problema comunicándose con el usuario y replicando el error"
+                },
+                {
+                    id: "q3_508",
+                    pregunta: "¿Qué herramienta nativa de Windows se utiliza para monitorear procesos bloqueados y el uso de recursos del sistema?",
+                    opciones: ["Panel de Control", "Administrador de Tareas (Task Manager)", "Explorador de Archivos", "Paint"],
+                    respuesta_correcta: "Administrador de Tareas (Task Manager)"
+                },
+                {
+                    id: "q4_508",
+                    pregunta: "¿Qué tipo de cable físico es el más utilizado para conectar estaciones de trabajo a un Switch en una red LAN local?",
+                    opciones: ["Cable Coaxial", "Cable UTP (Par trenzado Cat 5e/6)", "Cable HDMI", "Cable USB-C"],
+                    respuesta_correcta: "Cable UTP (Par trenzado Cat 5e/6)"
+                },
+                {
+                    id: "q5_508",
+                    pregunta: "¿Qué indica comúnmente el error HTTP 404 en el navegador de un usuario?",
+                    opciones: ["Problema con la tarjeta de video", "El recurso o página web solicitada no fue encontrada", "El servidor está apagado", "Error de contraseña incorrecta"],
+                    respuesta_correcta: "El recurso o página web solicitada no fue encontrada"
+                },
+                {
+                    id: "q6_508",
+                    pregunta: "¿Qué comando de la consola de Windows se utiliza para solicitar una nueva dirección IP al servidor DHCP?",
+                    opciones: ["ping localhost", "chkdsk", "ipconfig /renew", "sfc /scannow"],
+                    respuesta_correcta: "ipconfig /renew"
+                }
+            ]
         }
     ],
 
     postulaciones: [
-        // ==========================================
-        // OFERTA 501: Desarrollador Frontend React
-        // ==========================================
-        { id: 9001, oferta_id: 501, postulante_id: 20, fecha_postulacion: "2026-04-05T10:00", estado: "entrevista", comentario: "Buen perfil fullstack, encaja con lo que buscamos." },
-        { id: 9002, oferta_id: 501, postulante_id: 25, fecha_postulacion: "2026-04-06T11:30", estado: "pendiente", comentario: "Excelente dominio exclusivo de React y UI." },
-        { id: 9003, oferta_id: 501, postulante_id: 28, fecha_postulacion: "2026-04-07T09:15", estado: "visto", comentario: "Perfil Junior, pero con mucho potencial y buen portafolio." },
-        { id: 9004, oferta_id: 501, postulante_id: 22, fecha_postulacion: "2026-04-08T14:00", estado: "rechazado", comentario: "Su perfil está más orientado a Data, no a Frontend." },
-
-        // ==========================================
-        // OFERTA 502: Especialista en Marketing Digital
-        // ==========================================
-        { id: 9005, oferta_id: 502, postulante_id: 21, fecha_postulacion: "2026-04-02T16:20", estado: "entrevista", comentario: "Mucha experiencia en campañas y SEO." },
-        { id: 9006, oferta_id: 502, postulante_id: 29, fecha_postulacion: "2026-04-05T08:45", estado: "visto", comentario: "Fuerte en Google Analytics y Growth Hacking." },
-        { id: 9007, oferta_id: 502, postulante_id: 26, fecha_postulacion: "2026-04-08T10:10", estado: "pendiente", comentario: "Interesante cruce con UX, podría aportar valor al equipo." },
-
-        // ==========================================
-        // OFERTA 503: Diseñador UX/UI Senior
-        // ==========================================
-        { id: 9008, oferta_id: 503, postulante_id: 26, fecha_postulacion: "2026-04-01T09:00", estado: "entrevista", comentario: "Portafolio impecable en Figma y buen manejo de usuarios." },
-        { id: 9009, oferta_id: 503, postulante_id: 21, fecha_postulacion: "2026-04-03T11:20", estado: "visto", comentario: "Sabe diseño y marketing, buen complemento." },
-        { id: 9010, oferta_id: 503, postulante_id: 25, fecha_postulacion: "2026-04-06T15:40", estado: "rechazado", comentario: "Perfil demasiado técnico (programador), buscamos puro diseño visual." },
-
-        // ==========================================
-        // OFERTA 504: Ingeniero de Datos
-        // ==========================================
-        { id: 9011, oferta_id: 504, postulante_id: 23, fecha_postulacion: "2026-04-04T10:00", estado: "entrevista", comentario: "Seniority alto en Machine Learning y Big Data." },
-        { id: 9012, oferta_id: 504, postulante_id: 22, fecha_postulacion: "2026-04-05T14:30", estado: "visto", comentario: "Buen nivel de SQL y Python, candidato sólido." },
-        { id: 9013, oferta_id: 504, postulante_id: 27, fecha_postulacion: "2026-04-07T12:00", estado: "pendiente", comentario: "Es Arquitecto Backend, pero podría adaptarse a Data Engineer." },
-
-        // ==========================================
-        // OFERTA 505: Desarrollador Backend Node.js
-        // ==========================================
-        { id: 9014, oferta_id: 505, postulante_id: 24, fecha_postulacion: "2026-04-02T13:15", estado: "entrevista", comentario: "Experto en Node, APIs y Docker. Justo lo que pedimos." },
-        { id: 9015, oferta_id: 505, postulante_id: 27, fecha_postulacion: "2026-04-04T09:45", estado: "visto", comentario: "Arquitecto Backend muy sólido, pedir pretensiones salariales." },
-        { id: 9016, oferta_id: 505, postulante_id: 20, fecha_postulacion: "2026-04-06T16:20", estado: "pendiente", comentario: "Sabe Node, falta evaluar en prueba técnica." },
-        { id: 9017, oferta_id: 505, postulante_id: 23, fecha_postulacion: "2026-04-08T11:10", estado: "rechazado", comentario: "Perfil enfocado en Python/Data, no maneja Node.js." },
-
-        // ==========================================
-        // OFERTA 506: Gerente de Proyectos TI
-        // ==========================================
-        { id: 9018, oferta_id: 506, postulante_id: 20, fecha_postulacion: "2026-04-01T08:30", estado: "visto", comentario: "Tiene liderazgo en equipos ágiles." },
-        { id: 9019, oferta_id: 506, postulante_id: 27, fecha_postulacion: "2026-04-03T10:00", estado: "entrevista", comentario: "Perfil integral de arquitectura y gestión de equipos." },
-        { id: 9020, oferta_id: 506, postulante_id: 24, fecha_postulacion: "2026-04-05T15:45", estado: "pendiente", comentario: "Postula para dar el salto de Dev a Management." },
-
-        // ==========================================
-        // OFERTA 507: Analista de QA
-        // ==========================================
-        { id: 9021, oferta_id: 507, postulante_id: 28, fecha_postulacion: "2026-04-06T09:20", estado: "entrevista", comentario: "Conoce frameworks de pruebas como Cypress y Jest." },
-        { id: 9022, oferta_id: 507, postulante_id: 25, fecha_postulacion: "2026-04-07T14:10", estado: "visto", comentario: "Buen entendimiento de pruebas unitarias en Frontend." },
-        { id: 9023, oferta_id: 507, postulante_id: 22, fecha_postulacion: "2026-04-09T08:00", estado: "pendiente", comentario: "Perfil analítico, podría funcionar para QA manual." },
-
-        // ==========================================
-        // OFERTA 508: Especialista en Ciberseguridad
-        // ==========================================
-        { id: 9024, oferta_id: 508, postulante_id: 24, fecha_postulacion: "2026-04-05T11:00", estado: "visto", comentario: "Maneja AWS y redes, buen acercamiento a la seguridad." },
-        { id: 9025, oferta_id: 508, postulante_id: 27, fecha_postulacion: "2026-04-06T13:30", estado: "entrevista", comentario: "Conocimientos profundos en seguridad backend y vulnerabilidades." }
+        { 
+            id: 9001, oferta_id: 501, postulante_id: 20, fecha_postulacion: "2026-04-08T08:50", estado: "pendiente", comentario: "Perfil excelente, falló 1 pregunta.",
+            puntaje_cuestionario: 5, // Acertó 5 de 6
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_501", respuesta_usuario: "Arquitectura dirigida por eventos (Mensajería)", es_correcta: true },
+                { pregunta_id: "q2_501", respuesta_usuario: "Atomicidad, Consistencia, Aislamiento, Durabilidad", es_correcta: true },
+                { pregunta_id: "q3_501", respuesta_usuario: "Docker Compose", es_correcta: false }, // Falló aquí
+                { pregunta_id: "q4_501", respuesta_usuario: "Enrutar, autorizar y gestionar el tráfico hacia los microservicios", es_correcta: true },
+                { pregunta_id: "q5_501", respuesta_usuario: "Organizar datos para reducir la redundancia e integridad de datos", es_correcta: true },
+                { pregunta_id: "q6_501", respuesta_usuario: "Circuit Breaker", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9002, oferta_id: 503, postulante_id: 21, fecha_postulacion: "2026-04-08T10:20", estado: "visto", comentario: "Buen conocimiento de UX.",
+            puntaje_cuestionario: 6, // Acertó 6 de 6 (Puntaje Perfecto)
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_503", respuesta_usuario: "Tasa de conversión", es_correcta: true },
+                { pregunta_id: "q2_503", respuesta_usuario: "Visibilidad del estado del sistema", es_correcta: true },
+                { pregunta_id: "q3_503", respuesta_usuario: "Una técnica de investigación para descubrir cómo los usuarios agrupan la información", es_correcta: true },
+                { pregunta_id: "q4_503", respuesta_usuario: "Porque la mayoría del tráfico de usuarios proviene de dispositivos móviles", es_correcta: true },
+                { pregunta_id: "q5_503", respuesta_usuario: "Un proceso claro, seguro y sin distracciones innecesarias", es_correcta: true },
+                { pregunta_id: "q6_503", respuesta_usuario: "Las zonas de la pantalla donde los usuarios hacen más clic o prestan más atención", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9003, oferta_id: 501, postulante_id: 22, fecha_postulacion: "2026-04-08T11:45", estado: "rechazado", comentario: "Falta conocimiento técnico para ser Senior.",
+            puntaje_cuestionario: 2, // Acertó 2 de 6
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_501", respuesta_usuario: "Llamadas síncronas HTTP", es_correcta: false },
+                { pregunta_id: "q2_501", respuesta_usuario: "Atomicidad, Consistencia, Aislamiento, Durabilidad", es_correcta: true },
+                { pregunta_id: "q3_501", respuesta_usuario: "Ansible", es_correcta: false },
+                { pregunta_id: "q4_501", respuesta_usuario: "Crear bases de datos", es_correcta: false },
+                { pregunta_id: "q5_501", respuesta_usuario: "Convertir todos los textos a minúsculas", es_correcta: false },
+                { pregunta_id: "q6_501", respuesta_usuario: "Circuit Breaker", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9004, oferta_id: 502, postulante_id: 20, fecha_postulacion: "2026-04-08T12:00", estado: "entrevista", comentario: "Disponibilidad híbrida.",
+            puntaje_cuestionario: 5,
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_502", respuesta_usuario: "Infrastructure as a Service", es_correcta: true },
+                { pregunta_id: "q2_502", respuesta_usuario: "Nube Pública", es_correcta: true },
+                { pregunta_id: "q3_502", respuesta_usuario: "UML", es_correcta: true },
+                { pregunta_id: "q4_502", respuesta_usuario: "Codificar la base de datos", es_correcta: false },
+                { pregunta_id: "q5_502", respuesta_usuario: "Añadir más instancias o servidores para distribuir la carga", es_correcta: true },
+                { pregunta_id: "q6_502", respuesta_usuario: "Scrum", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9005, oferta_id: 505, postulante_id: 23, fecha_postulacion: "2026-04-08T14:00", estado: "pendiente", comentario: "Experiencia en Machine Learning comprobada.",
+            puntaje_cuestionario: 6,
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_505", respuesta_usuario: "Regresión Logística", es_correcta: true },
+                { pregunta_id: "q2_505", respuesta_usuario: "Cuando el modelo memoriza los datos de entrenamiento y falla al predecir datos nuevos", es_correcta: true },
+                { pregunta_id: "q3_505", respuesta_usuario: "Pandas", es_correcta: true },
+                { pregunta_id: "q4_505", respuesta_usuario: "Para reducir la dimensionalidad de un conjunto de datos perdiendo la menor información posible", es_correcta: true },
+                { pregunta_id: "q5_505", respuesta_usuario: "F1-Score", es_correcta: true },
+                { pregunta_id: "q6_505", respuesta_usuario: "Apache Spark", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9006, oferta_id: 507, postulante_id: 24, fecha_postulacion: "2026-04-08T15:30", estado: "visto", comentario: "Vivo en Lima, disponibilidad inmediata.",
+            puntaje_cuestionario: 4,
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_507", respuesta_usuario: "El porcentaje de usuarios que hicieron clic en un enlace respecto al total de impresiones", es_correcta: true },
+                { pregunta_id: "q2_507", respuesta_usuario: "Ambos son exactamente lo mismo", es_correcta: false },
+                { pregunta_id: "q3_507", respuesta_usuario: "Las etapas por las que pasa un usuario desde que conoce la marca hasta que realiza una compra", es_correcta: true },
+                { pregunta_id: "q4_507", respuesta_usuario: "Una página web diseñada específicamente para convertir visitantes en leads o ventas", es_correcta: true },
+                { pregunta_id: "q5_507", respuesta_usuario: "LTV", es_correcta: false },
+                { pregunta_id: "q6_507", respuesta_usuario: "Hootsuite (o Buffer)", es_correcta: true }
+            ]
+        },
+        
+        // Postulaciones de los candidatos avanzados
+        { 
+            id: 9007, oferta_id: 501, postulante_id: 25, fecha_postulacion: "2026-04-09T09:15", estado: "entrevista", comentario: "Perfil excelente, agendar entrevista técnica.",
+            puntaje_cuestionario: 6,
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_501", respuesta_usuario: "Arquitectura dirigida por eventos (Mensajería)", es_correcta: true },
+                { pregunta_id: "q2_501", respuesta_usuario: "Atomicidad, Consistencia, Aislamiento, Durabilidad", es_correcta: true },
+                { pregunta_id: "q3_501", respuesta_usuario: "Kubernetes", es_correcta: true },
+                { pregunta_id: "q4_501", respuesta_usuario: "Enrutar, autorizar y gestionar el tráfico hacia los microservicios", es_correcta: true },
+                { pregunta_id: "q5_501", respuesta_usuario: "Organizar datos para reducir la redundancia e integridad de datos", es_correcta: true },
+                { pregunta_id: "q6_501", respuesta_usuario: "Circuit Breaker", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9008, oferta_id: 506, postulante_id: 26, fecha_postulacion: "2026-04-09T10:30", estado: "visto", comentario: "Revisando portafolio en Frontend.",
+            puntaje_cuestionario: 5,
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_506", respuesta_usuario: "TypeScript", es_correcta: true },
+                { pregunta_id: "q2_506", respuesta_usuario: "@Component", es_correcta: true },
+                { pregunta_id: "q3_506", respuesta_usuario: "Dependency Injection (Inyección de Dependencias)", es_correcta: true },
+                { pregunta_id: "q4_506", respuesta_usuario: "ngDoCheck", es_correcta: false },
+                { pregunta_id: "q5_506", respuesta_usuario: "RxJS", es_correcta: true },
+                { pregunta_id: "q6_506", respuesta_usuario: "(click)='metodo()'", es_correcta: true }
+            ]
+        },
+        { 
+            id: 9009, oferta_id: 502, postulante_id: 28, fecha_postulacion: "2026-04-09T11:00", estado: "pendiente", comentario: "Junior con motivación.",
+            puntaje_cuestionario: 4,
+            respuestas_cuestionario: [
+                { pregunta_id: "q1_502", respuesta_usuario: "Internet as a Service", es_correcta: false },
+                { pregunta_id: "q2_502", respuesta_usuario: "Nube Pública", es_correcta: true },
+                { pregunta_id: "q3_502", respuesta_usuario: "HTML", es_correcta: false },
+                { pregunta_id: "q4_502", respuesta_usuario: "Entender y documentar qué debe hacer el sistema para satisfacer al cliente", es_correcta: true },
+                { pregunta_id: "q5_502", respuesta_usuario: "Añadir más instancias o servidores para distribuir la carga", es_correcta: true },
+                { pregunta_id: "q6_502", respuesta_usuario: "Scrum", es_correcta: true }
+            ]
+        }
     ]
 };
 

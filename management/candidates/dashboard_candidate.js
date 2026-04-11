@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser || currentUser.rol !== "postulante") {
         alert("Acceso denegado. Debes iniciar sesión como candidato.");
-        // Ajusta la ruta del login según tu estructura real
         window.location.href = "../../auth/login.html"; 
         return;
     }
@@ -34,196 +33,215 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderProfileInfo() {
     document.getElementById("profileFoto").src = currentPostulante.foto || "https://via.placeholder.com/150";
     document.getElementById("profileName").innerText = `${currentPostulante.nombre} ${currentPostulante.apellidos}`;
-    document.getElementById("profileProfession").innerText = currentPostulante.profesion;
+    document.getElementById("profileProfession").innerText = currentPostulante.profesion || "Profesión no especificada";
     
-    document.getElementById("profileLocation").innerText = currentPostulante.ubicacion;
-    document.getElementById("profilePhone").innerText = currentPostulante.telefono;
+    document.getElementById("profileLocation").innerText = currentPostulante.ubicacion || "No registrada";
+    document.getElementById("profilePhone").innerText = currentPostulante.telefono || "No registrado";
     document.getElementById("profileEducation").innerText = `${currentPostulante.nivel_educacion} en ${currentPostulante.institucion}`;
-    document.getElementById("profileExperience").innerText = currentPostulante.experiencia_anios;
-    document.getElementById("profileSalary").innerText = currentPostulante.expectativa_salarial;
+    document.getElementById("profileExperience").innerText = currentPostulante.experiencia_anios || 0;
+    document.getElementById("profileSalary").innerText = currentPostulante.expectativa_salarial || "A tratar";
 
-    // Renderizar habilidades
     const skillsContainer = document.getElementById("profileSkills");
     skillsContainer.innerHTML = "";
     if (currentPostulante.habilidades && currentPostulante.habilidades.length > 0) {
         currentPostulante.habilidades.forEach(skill => {
-            skillsContainer.innerHTML += `<span class="tag">${skill.trim()}</span>`;
+            skillsContainer.innerHTML += `<span class="skill-badge">${skill}</span>`;
         });
     } else {
-        skillsContainer.innerHTML = "<span class='text-muted'>Sin habilidades registradas</span>";
+        skillsContainer.innerHTML = "<span style='color:#999; font-size:13px;'>No se agregaron habilidades.</span>";
     }
-
-    // Botones de acción
-    document.getElementById("profileCV").href = currentPostulante.cv_url || "#";
-    document.getElementById("profileLinkedIn").href = currentPostulante.linkedin || "#";
 }
 
 // =======================
-// RENDERIZAR POSTULACIONES
+// RENDERIZAR LISTA DE POSTULACIONES
 // =======================
 function renderMisPostulaciones() {
     const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
     const ofertas = JSON.parse(localStorage.getItem("ofertas")) || [];
     const empresas = JSON.parse(localStorage.getItem("empresas")) || [];
     
-    const container = document.getElementById("postulacionesContainer");
+    const container = document.getElementById("postulacionesList");
     container.innerHTML = "";
 
-    // Filtrar solo las postulaciones de este usuario
     const misPostulaciones = postulaciones.filter(p => p.postulante_id === currentPostulante.id);
 
     if (misPostulaciones.length === 0) {
-        container.innerHTML = "<p>Aún no te has postulado a ninguna oferta.</p>";
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; background: #fff; border-radius: 10px; border: 1px dashed #ccc;">
+                <p style="color: #666; margin-bottom: 15px;">Aún no has postulado a ninguna oferta laboral.</p>
+                <button class="btn btn-primary" onclick="window.location.href='../jobs.html'">Explorar Ofertas</button>
+            </div>
+        `;
         return;
     }
 
-    misPostulaciones.forEach(postulacion => {
-        const oferta = ofertas.find(o => o.id === postulacion.oferta_id);
-        const empresa = oferta ? empresas.find(e => e.id === oferta.empresa_id) : null;
+    // Ordenar de la más reciente a la más antigua
+    misPostulaciones.sort((a, b) => new Date(b.fecha_postulacion) - new Date(a.fecha_postulacion));
 
-        if(oferta && empresa) {
-            let statusColor = "#f39c12"; // pendiente
-            if(postulacion.estado === "visto") statusColor = "#3498db";
-            if(postulacion.estado === "entrevista") statusColor = "#2ecc71";
-            if(postulacion.estado === "rechazado") statusColor = "#e74c3c";
+    misPostulaciones.forEach(post => {
+        const oferta = ofertas.find(o => o.id === post.oferta_id);
+        if (!oferta) return;
+        
+        const empresa = empresas.find(e => e.id === oferta.empresa_id);
 
-            container.innerHTML += `
-                <div class="postulacion-card">
-                    <div class="postulacion-header">
-                        <h3>${oferta.titulo}</h3>
-                        <span class="status-badge" style="background-color: ${statusColor}">
-                            ${postulacion.estado.toUpperCase()}
-                        </span>
-                    </div>
-                    <p class="empresa-name">🏢 ${empresa.nombre}</p>
-                    <p class="fecha-post">📅 Postulado el: ${new Date(postulacion.fecha_postulacion).toLocaleDateString()}</p>
-                    <button class="btn btn-outline btn-sm" onclick="verDetallesPostulacion(${postulacion.id})" style="margin-top: 10px;">
-                        Ver Detalles
-                    </button>
-                </div>
-            `;
+        let statusClass = `status-${post.estado.toLowerCase()}`;
+        let statusText = post.estado.charAt(0).toUpperCase() + post.estado.slice(1);
+
+        // Si tiene nota del examen, la mostramos en miniatura
+        let badgeExamen = "";
+        if (oferta.cuestionario && oferta.cuestionario.length > 0) {
+            const nota = post.puntaje_cuestionario || 0;
+            const total = oferta.cuestionario.length;
+            badgeExamen = `<span style="font-size:12px; margin-left:10px; color:#16a34a; font-weight:bold;">📝 Examen: ${nota}/${total}</span>`;
         }
+
+        container.innerHTML += `
+            <div class="postulacion-card">
+                <div class="postulacion-info">
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                    <h3>${oferta.titulo} ${badgeExamen}</h3>
+                    <p>🏢 ${empresa ? empresa.nombre : 'Confidencial'} | 📍 ${oferta.ubicacion}</p>
+                    <span class="postulacion-date">Postulado el: ${post.fecha_postulacion.split('T')[0]}</span>
+                </div>
+                <div>
+                    <button class="btn btn-secondary btn-sm" onclick="verDetallePostulacion(${post.id})">Ver Detalles y Examen</button>
+                </div>
+            </div>
+        `;
     });
 }
 
 // =======================
-// MODAL DE DETALLES
+// VER DETALLES Y EXAMEN (MODAL)
 // =======================
-function verDetallesPostulacion(postulacionId) {
+function verDetallePostulacion(postulacionId) {
     const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
     const ofertas = JSON.parse(localStorage.getItem("ofertas")) || [];
     const empresas = JSON.parse(localStorage.getItem("empresas")) || [];
-    const categorias = JSON.parse(localStorage.getItem("categorias")) || [];
 
-    const postulacion = postulaciones.find(p => p.id === postulacionId);
-    if (!postulacion) return;
-
-    const oferta = ofertas.find(o => o.id === postulacion.oferta_id);
+    const post = postulaciones.find(p => p.id === postulacionId);
+    const oferta = ofertas.find(o => o.id === post.oferta_id);
     const empresa = empresas.find(e => e.id === oferta.empresa_id);
-    const categoria = categorias.find(c => c.id === oferta.categoria_id);
 
-    const modalBody = document.getElementById("modalBody");
+    const statusText = post.estado.toUpperCase();
+    const statusClass = `status-${post.estado.toLowerCase()}`;
 
-    let statusColor = "#f39c12"; 
-    if(postulacion.estado === "visto") statusColor = "#3498db";
-    if(postulacion.estado === "entrevista") statusColor = "#2ecc71";
-    if(postulacion.estado === "rechazado") statusColor = "#e74c3c";
-
-    modalBody.innerHTML = `
-        <h2 style="color: var(--primary); margin-top: 0;">${oferta.titulo}</h2>
-        <p style="font-size: 16px; color: #555; font-weight: bold;">🏢 Empresa: ${empresa.nombre} (${empresa.sector})</p>
-        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; font-size: 14px;">
-            <p><strong>📍 Ubicación:</strong> ${oferta.ubicacion}</p>
-            <p><strong>💻 Modalidad:</strong> ${oferta.modalidad}</p>
-            <p><strong>💰 Sueldo:</strong> S/ ${oferta.sueldo}</p>
-            <p><strong>🏷️ Categoría:</strong> ${categoria ? categoria.nombre : 'General'}</p>
+    // 1. Cabecera (Detalles de Oferta y Empresa)
+    let html = `
+        <div class="company-header-modal">
+            <img src="${empresa?.logo || 'https://via.placeholder.com/60'}" alt="Logo Empresa">
+            <div>
+                <h3>${empresa?.nombre || 'Empresa Confidencial'}</h3>
+                <p>Sector: ${empresa?.sector || 'No especificado'} | Ubicación: ${empresa?.ubicacion || 'Remoto'}</p>
+            </div>
         </div>
 
-        <h3 style="font-size: 16px; margin-bottom: 5px;">Descripción del Puesto</h3>
-        <p style="line-height: 1.5; color: #444; font-size: 14px;">${oferta.descripcion}</p>
-        
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 25px; border-left: 5px solid ${statusColor};">
-            <h3 style="margin: 0 0 10px 0; font-size: 16px;">Seguimiento de tu Postulación</h3>
-            <p style="margin: 5px 0; font-size: 14px;"><strong>📅 Fecha de envío:</strong> ${new Date(postulacion.fecha_postulacion).toLocaleString()}</p>
-            <p style="margin: 5px 0; font-size: 14px;"><strong>📌 Estado:</strong> <span style="color: ${statusColor}; font-weight: bold;">${postulacion.estado.toUpperCase()}</span></p>
-            <p style="margin: 5px 0; font-size: 14px;">
-                <strong>💬 Comentario de la Empresa:</strong> 
-                ${postulacion.comentario ? `<em>"${postulacion.comentario}"</em>` : `<span style="color: #999;">Aún no hay comentarios.</span>`}
-            </p>
+        <div style="margin-bottom: 25px;">
+            <h2 style="color:var(--primary); margin:0 0 5px 0;">${oferta.titulo}</h2>
+            <span class="status-badge ${statusClass}" style="margin-top: 5px;">ESTADO DEL PROCESO: ${statusText}</span>
+            <p style="margin: 10px 0 5px 0;"><strong>Modalidad:</strong> ${oferta.modalidad} | <strong>Sueldo:</strong> S/ ${oferta.sueldo}</p>
+            <p style="margin: 5px 0; color: #555;"><strong>Comentario del Reclutador:</strong> <em>"${post.comentario || 'En revisión...'}"</em></p>
         </div>
     `;
 
-    const modal = document.getElementById("postulacionModal");
-    modal.classList.remove("hidden");
-    modal.style.display = "flex";
+    // 2. Bloque de Resultados del Cuestionario (NEUTRO)
+    if (oferta.cuestionario && oferta.cuestionario.length > 0) {
+        
+        const puntaje = post.puntaje_cuestionario || 0;
+        const total = oferta.cuestionario.length;
+        const porcentaje = Math.round((puntaje / total) * 100);
+
+        html += `
+            <div class="evaluacion-score-box">
+                🎯 Resultado de tu Evaluación Técnica: ${puntaje} / ${total} aciertos (${porcentaje}%)
+            </div>
+            <h3 style="margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px;">Detalle de tus Respuestas</h3>
+            <p style="font-size:13px; color:#666; margin-bottom: 15px;">Por motivos de seguridad y confidencialidad, solo se muestra la opción que seleccionaste durante el examen.</p>
+        `;
+
+        // Renderizar pregunta por pregunta
+        oferta.cuestionario.forEach((q, index) => {
+            const respuestaMia = (post.respuestas_cuestionario || []).find(r => r.pregunta_id === q.id);
+
+            html += `
+                <div class="q-detail-box">
+                    <p style="margin-top:0; font-weight:bold; font-size:15px; color:#333;">${index + 1}. ${q.pregunta}</p>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px;">
+            `;
+
+            // Opciones de cada pregunta
+            q.opciones.forEach(opt => {
+                let itemClass = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px;";
+                let labelExtra = "";
+
+                const fueMiRespuesta = respuestaMia && (opt === respuestaMia.respuesta_usuario);
+
+                if (fueMiRespuesta) {
+                    itemClass += " background: #e0f2fe; border-color: #bae6fd; color: #0369a1; font-weight: bold;"; // Azul neutro
+                    labelExtra = " <strong>(Tu elección) 📌</strong>";
+                } else {
+                    itemClass += " background: #f8fafc; color: #64748b;"; // Gris
+                }
+
+                html += `<li style="${itemClass}">${opt} ${labelExtra}</li>`;
+            });
+
+            html += `</ul></div>`;
+        });
+    } else {
+        html += `<p style="padding: 20px; background: #f8fafc; border-radius: 8px; text-align: center; color: #64748b;">No hubo evaluación técnica para esta postulación.</p>`;
+    }
+
+    document.getElementById("modalBody").innerHTML = html;
+    document.getElementById("postulacionModal").style.display = "flex";
+    document.getElementById("postulacionModal").classList.remove("hidden");
 }
 
 function closeModal() {
-    const modal = document.getElementById("postulacionModal");
-    modal.style.display = "none";
-    modal.classList.add("hidden");
-}
-
-// Cerrar modal al hacer clic afuera
-window.onclick = function(event) {
-    const modal = document.getElementById("postulacionModal");
-    if (event.target === modal) {
-        closeModal();
-    }
+    document.getElementById("postulacionModal").style.display = "none";
 }
 
 // =======================
-// FORMULARIO DE EDICIÓN
+// LÓGICA DE EDICIÓN DE PERFIL
 // =======================
 function toggleEditMode() {
-    const viewSection = document.getElementById("viewPostulaciones");
-    const editSection = document.getElementById("editProfileSection");
+    const viewPostulaciones = document.getElementById("view-postulaciones");
+    const viewEditar = document.getElementById("view-editar");
 
-    if (editSection.classList.contains("hidden")) {
-        viewSection.classList.add("hidden");
-        editSection.classList.remove("hidden");
-        fillEditForm(); 
+    if (viewEditar.classList.contains("hidden")) {
+        viewPostulaciones.classList.add("hidden");
+        viewEditar.classList.remove("hidden");
     } else {
-        editSection.classList.add("hidden");
-        viewSection.classList.remove("hidden");
+        viewEditar.classList.add("hidden");
+        viewPostulaciones.classList.remove("hidden");
     }
-}
-
-function fillEditForm() {
-    document.getElementById("editNombre").value = currentPostulante.nombre || "";
-    document.getElementById("editApellidos").value = currentPostulante.apellidos || "";
-    document.getElementById("editNacimiento").value = currentPostulante.fecha_nacimiento || "";
-    document.getElementById("editDNI").value = currentPostulante.dni || "";
-    document.getElementById("editTelefono").value = currentPostulante.telefono || "";
-    document.getElementById("editUbicacion").value = currentPostulante.ubicacion || "";
-    document.getElementById("editNivelEducacion").value = currentPostulante.nivel_educacion || "Universitario Completo";
-    document.getElementById("editInstitucion").value = currentPostulante.institucion || "";
-    document.getElementById("editProfesion").value = currentPostulante.profesion || "";
-    document.getElementById("editExperiencia").value = currentPostulante.experiencia_anios || 0;
-    document.getElementById("editViajar").value = currentPostulante.disponibilidad_viajar || "Si";
-    document.getElementById("editSueldo").value = currentPostulante.expectativa_salarial || 0;
-    document.getElementById("editHabilidades").value = (currentPostulante.habilidades || []).join(", ");
-    document.getElementById("editLinkedin").value = currentPostulante.linkedin || "";
-    document.getElementById("editFoto").value = currentPostulante.foto || "";
-    document.getElementById("editCV").value = currentPostulante.cv_url || "";
 }
 
 function setupEditForm() {
-    const form = document.getElementById("editProfileForm");
-    form.addEventListener("submit", (e) => {
+    document.getElementById("editNombre").value = currentPostulante.nombre;
+    document.getElementById("editApellidos").value = currentPostulante.apellidos;
+    document.getElementById("editTelefono").value = currentPostulante.telefono || "";
+    document.getElementById("editUbicacion").value = currentPostulante.ubicacion || "";
+    document.getElementById("editNivelEducacion").value = currentPostulante.nivel_educacion || "";
+    document.getElementById("editInstitucion").value = currentPostulante.institucion || "";
+    document.getElementById("editProfesion").value = currentPostulante.profesion || "";
+    document.getElementById("editExperiencia").value = currentPostulante.experiencia_anios || 0;
+    document.getElementById("editViajar").value = currentPostulante.disponibilidad_viajar || "No";
+    document.getElementById("editSueldo").value = currentPostulante.expectativa_salarial || "";
+    
+    document.getElementById("editHabilidades").value = currentPostulante.habilidades ? currentPostulante.habilidades.join(", ") : "";
+    document.getElementById("editLinkedin").value = currentPostulante.linkedin || "";
+    document.getElementById("editFoto").value = currentPostulante.foto || "";
+    document.getElementById("editCV").value = currentPostulante.cv_url || "";
+
+    document.getElementById("formEditProfile").addEventListener("submit", function(e) {
         e.preventDefault();
 
-        const habilidadesArray = document.getElementById("editHabilidades").value
-            .split(",")
-            .map(s => s.trim())
-            .filter(s => s !== "");
+        const habString = document.getElementById("editHabilidades").value;
+        const habilidadesArray = habString.split(",").map(item => item.trim()).filter(item => item !== "");
 
         currentPostulante.nombre = document.getElementById("editNombre").value;
         currentPostulante.apellidos = document.getElementById("editApellidos").value;
-        currentPostulante.fecha_nacimiento = document.getElementById("editNacimiento").value;
-        currentPostulante.dni = document.getElementById("editDNI").value;
         currentPostulante.telefono = document.getElementById("editTelefono").value;
         currentPostulante.ubicacion = document.getElementById("editUbicacion").value;
         currentPostulante.nivel_educacion = document.getElementById("editNivelEducacion").value;

@@ -48,82 +48,98 @@
 }
 
 /* =======================
-   TARJETAS DE OFERTAS
+   GRILLA DE OFERTAS
 ======================= */
 .jobs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
 }
 
 .job-card {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    cursor: pointer;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 25px;
     transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .job-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-    border-color: var(--primary, #0056b3);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    border-color: #cbd5e1;
 }
 
-.job-card-header {
+.job-header {
     display: flex;
-    align-items: center;
     gap: 15px;
+    align-items: center;
     margin-bottom: 15px;
 }
 
-.empresa-logo-mini {
+.company-logo {
     width: 50px;
     height: 50px;
     border-radius: 8px;
-    background: #f4f4f4;
+    object-fit: cover;
 }
 
-.empresa-nombre {
-    color: #666;
+.job-title {
+    font-size: 18px;
+    color: var(--primary, #0056b3);
+    margin: 0 0 5px 0;
+}
+
+.company-name {
     font-size: 14px;
+    color: #666;
+    margin: 0;
 }
 
-.badge {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
+.job-details {
+    flex-grow: 1;
+}
+
+.job-tag {
     display: inline-block;
-    margin-bottom: 10px;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin: 5px 5px 5px 0;
 }
 
-.badge-cat { background: #e0f2fe; color: #0284c7; }
-.badge-mod { background: #dcfce7; color: #166534; }
-
-.btn-ver-mas {
-    width: 100%;
+.job-salary {
     margin-top: 15px;
-    padding: 10px;
-    background: #f8f9fa;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    cursor: pointer;
     font-weight: bold;
+    color: #16a34a;
+}
+
+.btn-details {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid var(--accent, #3b82f6);
+    color: var(--accent, #3b82f6);
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-.job-card:hover .btn-ver-mas {
+.btn-details:hover {
     background: var(--primary, #0056b3);
     color: white;
     border-color: var(--primary, #0056b3);
 }
 
 /* =======================
-   MODAL DE DETALLES
+   MODALES (DETALLES Y EXAMEN)
 ======================= */
 .modal {
     display: none;
@@ -165,38 +181,39 @@
     color: #333;
 }
 
-.modal-header-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+/* =======================
+   ESTILOS PARA EL EXAMEN (NUEVO)
+======================= */
+.q-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
     margin-bottom: 20px;
 }
 
-.empresa-logo-grande {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-}
-
-.modal-body-info hr {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 15px 0;
-}
-
-.btn-postular {
-    width: 100%;
-    margin-top: 20px;
-    padding: 15px;
-    background: var(--primary, #0056b3);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+.q-box label {
+    display: block;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: white;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
-.btn-postular:hover {
-    background: #004494;
+.q-box label:hover {
+    background: #f1f5f9;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent, #3b82f6), #2563eb);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
 }

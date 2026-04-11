@@ -31,25 +31,27 @@
                 <div id="profileSkills" class="skills-tags"></div>
             </div>
 
-            <div class="profile-actions">
-                <a id="profileCV" href="#" target="_blank" class="btn btn-outline">Ver mi CV actual</a>
-                <a id="profileLinkedIn" href="#" target="_blank" class="btn btn-outline">LinkedIn</a>
-                <button onclick="toggleEditMode()" class="btn btn-primary">Editar Perfil</button>
+            <div class="profile-actions" style="margin-top: 20px;">
+                <button class="btn btn-primary" style="width: 100%;" onclick="toggleEditMode()">Editar Perfil</button>
             </div>
         </div>
     </aside>
 
-    <main class="dashboard-content">
+    <main class="dashboard-main">
         
-        <section id="viewPostulaciones">
-            <h2>Mis Postulaciones</h2>
-            <div id="postulacionesContainer" class="postulaciones-list">
+        <section id="view-postulaciones">
+            <div class="section-header">
+                <h2>📋 Mis Postulaciones</h2>
+                <p class="text-muted">Haz seguimiento al estado de tus procesos y mira tus resultados técnicos.</p>
+            </div>
+            
+            <div id="postulacionesList" class="postulaciones-grid">
                 </div>
         </section>
 
-        <section id="editProfileSection" class="hidden">
-            <h2>Editar Mi Perfil</h2>
-            <form id="editProfileForm" class="edit-form">
+        <section id="view-editar" class="hidden" style="background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow);">
+            <h2>Actualizar Datos del Perfil</h2>
+            <form id="formEditProfile">
                 <div class="form-grid">
                     <div>
                         <label>Nombre</label>
@@ -60,53 +62,39 @@
                         <input type="text" id="editApellidos" required>
                     </div>
                     <div>
-                        <label>Fecha de Nacimiento</label>
-                        <input type="date" id="editNacimiento" required>
-                    </div>
-                    <div>
-                        <label>DNI</label>
-                        <input type="text" id="editDNI" required>
-                    </div>
-                    <div>
                         <label>Teléfono</label>
-                        <input type="tel" id="editTelefono" required>
+                        <input type="text" id="editTelefono">
                     </div>
                     <div>
-                        <label>Ubicación</label>
-                        <input type="text" id="editUbicacion" required>
+                        <label>Ubicación (Ciudad)</label>
+                        <input type="text" id="editUbicacion">
                     </div>
                     <div>
                         <label>Nivel de Educación</label>
-                        <select id="editNivelEducacion">
-                            <option value="Técnico Incompleto">Técnico Incompleto</option>
-                            <option value="Técnico Completo">Técnico Completo</option>
-                            <option value="Universitario Incompleto">Universitario Incompleto</option>
-                            <option value="Universitario Completo">Universitario Completo</option>
-                            <option value="Postgrado/Maestría">Postgrado/Maestría</option>
-                        </select>
+                        <input type="text" id="editNivelEducacion">
                     </div>
                     <div>
                         <label>Institución</label>
-                        <input type="text" id="editInstitucion" required>
+                        <input type="text" id="editInstitucion">
                     </div>
                     <div>
-                        <label>Profesión / Cargo</label>
-                        <input type="text" id="editProfesion" required>
+                        <label>Profesión / Cargo Actual</label>
+                        <input type="text" id="editProfesion">
                     </div>
                     <div>
                         <label>Años de Experiencia</label>
-                        <input type="number" id="editExperiencia" required>
+                        <input type="number" id="editExperiencia" min="0">
                     </div>
                     <div>
-                        <label>Disponibilidad para viajar</label>
+                        <label>¿Disponibilidad para viajar?</label>
                         <select id="editViajar">
-                            <option value="Si">Sí</option>
+                            <option value="Sí">Sí</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                     <div>
                         <label>Expectativa Salarial (S/)</label>
-                        <input type="number" id="editSueldo" required>
+                        <input type="number" id="editSueldo">
                     </div>
                     <div class="full-width">
                         <label>Habilidades (Separadas por comas)</label>
@@ -135,7 +123,7 @@
     </main>
 
     <div id="postulacionModal" class="modal hidden">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 750px;">
             <span class="close" onclick="closeModal()">&times;</span>
             <div id="modalBody">
                 </div>
