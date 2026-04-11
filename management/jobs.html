@@ -11,15 +11,16 @@
 
 <body>
 
-<div id="navbar"></div>
+<header id="navbar"></header>
 
-<div class="container">
-    <div class="header-section">
+<main class="container">
+    
+    <header class="header-section">
         <h1>Explora Ofertas Laborales</h1>
         <p id="resultados-resumen">Cargando resultados...</p>
-    </div>
+    </header>
 
-    <div class="filters">
+    <section class="filters">
         <input type="text" id="searchInput" placeholder="Buscar cargo o palabra clave...">
         
         <select id="ubicacionFilter">
@@ -50,11 +51,11 @@
             <option value="recientes">Más recientes primero</option>
             <option value="antiguas">Más antiguas primero</option>
         </select>
-    </div>
+    </section>
 
-    <div id="jobsContainer" class="jobs-grid"></div>
+    <section id="jobsContainer" class="jobs-grid"></section>
 
-</div>
+</main>
 
 <div id="jobModal" class="modal">
     <div class="modal-content" id="modalBody">
@@ -71,17 +72,17 @@
             </div>
         
         <div style="text-align: right; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-            <button id="btnEnviarExamen" class="btn-primary" style="padding: 12px 24px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+            <button id="btnEnviarExamen" class="btn-primary" style="padding: 12px 24px; border:none; border-radius: 6px; cursor:pointer;">
                 Enviar Respuestas y Postular
             </button>
         </div>
     </div>
 </div>
 
-<div id="footer"></div>
+<footer id="footer"></footer>
 
-<script src="../shared/js/mockData.js"></script>
-<script src="../shared/js/utils.js"></script>
+<script src="../../shared/js/mockData.js"></script>
+<script src="../../shared/js/utils.js"></script>
 <script src="jobs.js"></script>
 
 </body>

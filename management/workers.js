@@ -55,7 +55,7 @@ function renderWorkers(data) {
         }
 
         grid.innerHTML += `
-            <div class="worker-card">
+            <article class="worker-card">
                 ${rankBadge}
                 <img src="${postulante.foto || 'https://via.placeholder.com/90'}" alt="Foto de ${postulante.nombre}" class="worker-foto">
                 <h3 class="worker-name">${postulante.nombre} ${postulante.apellidos}</h3>
@@ -71,7 +71,7 @@ function renderWorkers(data) {
                 </div>
 
                 <button class="btn-contact" onclick="abrirPerfil(${postulante.id})">Ver Perfil y Contactar</button>
-            </div>
+            </article>
         `;
     });
 }

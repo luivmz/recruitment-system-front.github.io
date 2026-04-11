@@ -9,9 +9,10 @@
 </head>
 <body>
 
-<div id="navbar"></div>
+<header id="navbar"></header>
 
 <div class="admin-container">
+    
     <aside class="admin-sidebar">
         <h2>Admin Panel</h2>
         <nav>
@@ -22,17 +23,22 @@
     </aside>
 
     <main class="admin-content">
+        
         <section id="sec-resumen" class="admin-section">
-            <h1>Panel de Control</h1>
+            <header class="section-header">
+                <h1 style="margin: 0;">Panel de Control</h1>
+            </header>
+            
             <div id="metrics" class="metrics-grid">
                 </div>
         </section>
 
         <section id="sec-usuarios" class="admin-section hidden">
-            <div class="section-header">
-                <h1>Gestión de Postulantes</h1>
+            <header class="section-header">
+                <h1 style="margin: 0;">Gestión de Postulantes</h1>
                 <input type="text" id="searchUser" placeholder="Buscar por nombre o email..." oninput="filterUsers()">
-            </div>
+            </header>
+            
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -48,10 +54,11 @@
         </section>
 
         <section id="sec-empresas" class="admin-section hidden">
-            <div class="section-header">
-                <h1>Empresas Registradas</h1>
+            <header class="section-header">
+                <h1 style="margin: 0;">Empresas Registradas</h1>
                 <input type="text" id="searchEmpresa" placeholder="Buscar empresa..." oninput="filterCompanies()">
-            </div>
+            </header>
+            
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -66,6 +73,7 @@
                 <tbody id="tableCompanies"></tbody>
             </table>
         </section>
+        
     </main>
 </div>
 
@@ -76,7 +84,7 @@
     </div>
 </div>
 
-<div id="footer"></div>
+<footer id="footer"></footer>
 
 <script src="../../shared/js/mockData.js"></script>
 <script src="../../shared/js/utils.js"></script>

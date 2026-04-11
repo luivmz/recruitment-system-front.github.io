@@ -11,80 +11,84 @@
 
 <body>
 
-<div id="navbar"></div>
+<header id="navbar"></header>
 
-<section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1>Encuentra el mejor talento o tu próximo trabajo</h1>
-        <p>Conectamos a profesionales excepcionales con las empresas más innovadoras del país.</p>
-        
-        <div class="search-box">
-            <div class="search-input-group">
-                <span>🔍</span>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Buscar empleo, tecnología o empresa..."
-                >
+<main>
+    
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Encuentra el mejor talento o tu próximo trabajo</h1>
+            <p>Conectamos a profesionales excepcionales con las empresas más innovadoras del país.</p>
+            
+            <div class="search-box">
+                <div class="search-input-group">
+                    <span>🔍</span>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Buscar empleo, tecnología o empresa..."
+                    >
+                </div>
+
+                <div class="search-input-group border-left">
+                    <span>📁</span>
+                    <select id="categoriaSelect">
+                        <option value="">Todas las categorías</option>
+                    </select>
+                </div>
+
+                <div class="search-input-group border-left">
+                    <span>📍</span>
+                    <select id="ubicacionSelect">
+                        <option value="">Todo el Perú</option>
+                        <option value="Lima">Lima</option>
+                        <option value="Arequipa">Arequipa</option>
+                        <option value="Trujillo">Trujillo</option>
+                        <option value="Huancayo">Huancayo</option>
+                        <option value="Remoto">Remoto</option>
+                    </select>
+                </div>
+
+                <button onclick="buscarOfertas()" class="btn-search">Buscar</button>
             </div>
-
-            <div class="search-input-group border-left">
-                <span>📁</span>
-                <select id="categoriaSelect">
-                    <option value="">Todas las categorías</option>
-                </select>
-            </div>
-
-            <div class="search-input-group border-left">
-                <span>📍</span>
-                <select id="ubicacionSelect">
-                    <option value="">Todo el Perú</option>
-                    <option value="actual">📍 Mi ubicación actual</option>
-                    <option>Lima</option>
-                    <option>Arequipa</option>
-                    <option>Trujillo</option>
-                    <option>Huancayo</option>
-                    <option>Remoto</option>
-                </select>
-            </div>
-
-            <button onclick="buscarOfertas()" class="btn-search">Buscar</button>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="features-section">
-    <div class="features-header">
-        <h2>¿Por qué elegir TalentoHub?</h2>
-        <p>Una plataforma diseñada para simplificar tu vida, ya seas candidato o empresa.</p>
-    </div>
-
-    <div class="features">
-        <div class="feature">
-            <div class="feature-icon">🚀</div>
-            <h3>Para Candidatos</h3>
-            <p>Postula fácilmente a miles de empleos, crea un perfil atractivo y destaca ante los reclutadores.</p>
+    <section class="features-section">
+        <div class="features-header">
+            <h2>¿Por qué elegir TalentoHub?</h2>
+            <p>Una plataforma diseñada para simplificar tu vida, ya seas candidato o empresa.</p>
         </div>
 
-        <div class="feature">
-            <div class="feature-icon">🏢</div>
-            <h3>Para Empresas</h3>
-            <p>Publica ofertas en minutos, gestiona talento con nuestro ranking inteligente y encuentra a tu candidato ideal.</p>
-        </div>
+        <div class="features">
+            <article class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3>Para Candidatos</h3>
+                <p>Postula fácilmente a miles de empleos, crea un perfil atractivo y destaca ante los reclutadores.</p>
+            </article>
 
-        <div class="feature">
-            <div class="feature-icon">🤝</div>
-            <h3>Conexión Directa</h3>
-            <p>Comunicación transparente y herramientas de seguimiento para que ninguna oportunidad se pierda.</p>
-        </div>
-    </div>
-</section>
+            <article class="feature">
+                <div class="feature-icon">🏢</div>
+                <h3>Para Empresas</h3>
+                <p>Publica ofertas en minutos, gestiona talento con nuestro ranking inteligente y encuentra a tu candidato ideal.</p>
+            </article>
 
-<div id="footer"></div>
+            <article class="feature">
+                <div class="feature-icon">🤝</div>
+                <h3>Conexión Directa</h3>
+                <p>Comunicación transparente y herramientas de seguimiento para que ninguna oportunidad se pierda.</p>
+            </article>
+        </div>
+    </section>
+
+</main>
+
+<footer id="footer"></footer>
 
 <script src="shared/js/mockData.js"></script>
 <script src="shared/js/utils.js"></script>
 <script src="index.js"></script>
+
 </body>
 </html>

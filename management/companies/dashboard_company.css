@@ -47,78 +47,22 @@
 
 .card {
     background: #fff;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: var(--shadow);
-    border: 1px solid #eaeaea;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.2s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
-.card-header {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.card-logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.card-title {
-    margin: 0 0 5px 0;
-    font-size: 18px;
-    color: var(--primary);
-}
-
-.card-subtitle {
-    margin: 0;
-    font-size: 13px;
-    color: #666;
-}
-
-.card-body {
-    flex-grow: 1;
-    margin-bottom: 20px;
-}
-
-.card-body p {
-    margin: 8px 0;
-    font-size: 14px;
-}
-
-.card-actions {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.badge-activa { 
-    background: #d4edda; color: #155724; padding: 4px 10px; 
-    border-radius: 12px; font-size: 12px; font-weight:bold; margin-left: 10px;
-}
-.badge-cerrada { 
-    background: #f8d7da; color: #721c24; padding: 4px 10px; 
-    border-radius: 12px; font-size: 12px; font-weight:bold; margin-left: 10px;
-}
-
-/* =======================
-   3. FORMULARIOS
-======================= */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-top: 20px;
 }
 
 .full-width {
@@ -129,108 +73,61 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 5px;
     box-sizing: border-box;
-    font-family: inherit;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
 }
 
 /* =======================
-   4. BOTONES (DISEÑO PREMIUM)
-======================= */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--accent, #3b82f6), #2563eb);
-    color: white;
-    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-}
-
-.btn-primary:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
-}
-
-.btn-secondary {
-    background: #ffffff;
-    color: #334155;
-    border: 1px solid #cbd5e1;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-
-.btn-secondary:hover {
-    background: #f8fafc;
-    border-color: #94a3b8;
-    color: #0f172a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
-}
-
-.btn-secondary:active {
-    transform: translateY(0);
-}
-
-.btn-sm {
-    padding: 8px 16px;
-    font-size: 13px;
-    border-radius: 6px;
-}
-
-/* =======================
-   5. MODALES (VENTANAS EMERGENTES)
+   3. MODALES
 ======================= */
 .modal {
-    display: none; 
-    position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-    align-items: center; justify-content: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
-    background: #fff; padding: 30px; border-radius: 12px;
-    width: 90%; max-width: 600px; position: relative;
-    max-height: 90vh; overflow-y: auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .close {
-    position: absolute; top: 15px; right: 20px; font-size: 28px;
-    color: #aaa; cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
 }
 
-.close:hover { 
-    color: #333; 
-}
+.close:hover { color: #333; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
+}
+
 /* =======================
-   6. RANKING DE POSTULANTES
+   4. RANKING DE POSTULANTES
 ======================= */
 .card.rank-gold { 
     border: 2px solid #ffd700; 
@@ -238,72 +135,47 @@
 }
 .card.rank-silver { 
     border: 2px solid #c0c0c0; 
-    background: linear-gradient(to bottom right, #f8f8f8, #ffffff); 
+    background: linear-gradient(to bottom right, #f8f8f8, #ffffff);
 }
 .card.rank-bronze { 
     border: 2px solid #cd7f32; 
-    background: linear-gradient(to bottom right, #fffaf0, #ffffff); 
+    background: linear-gradient(to bottom right, #fffaf0, #ffffff);
 }
 
 /* =======================
-   7. CREADOR DE CUESTIONARIOS
+   5. BOTONES Y ETIQUETAS
 ======================= */
-.pregunta-box {
-    background: #fff; 
-    border: 1px solid #ddd; 
-    padding: 15px;
-    border-radius: 8px; 
-    margin-bottom: 20px; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.opciones-container { 
-    margin-top: 10px; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 8px; 
-}
-
-.opcion-row { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-}
-
-.btn-add-option {
-    background: rgba(59, 130, 246, 0.05);
-    color: var(--accent, #3b82f6);
-    border: 1px dashed var(--accent, #3b82f6);
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 14px;
     font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.btn-primary { background: linear-gradient(135deg, var(--accent, #3b82f6), #2563eb); color: white; }
+.btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
     display: inline-block;
-    margin-top: 10px;
-    width: 100%;
+    margin-bottom: 10px;
 }
 
-.btn-add-option:hover {
-    background: rgba(59, 130, 246, 0.15);
-    transform: translateY(-1px);
-}
-
-/* Botón Eliminar Opción (X roja) */
-button[style*="color:red"] {
-    transition: all 0.2s ease;
-    padding: 4px 8px;
-    border-radius: 4px;
-}
-
-button[style*="color:red"]:hover {
-    background-color: #fee2e2 !important;
-    transform: scale(1.05);
-}
+.status-activa { background: #dcfce7; color: #16a34a; }
+.status-cerrada { background: #fee2e2; color: #dc2626; }
 
 /* =======================
-   8. VISTA RESULTADOS CUESTIONARIO
+   6. CREADOR Y RESULTADOS CUESTIONARIO
 ======================= */
 .evaluacion-card {
     background: #f8fafc; 
@@ -313,42 +185,65 @@ button[style*="color:red"]:hover {
     margin: 15px 0;
 }
 
+.evaluacion-score-box {
+    margin-bottom: 20px;
+}
+
 .evaluacion-score {
-    font-size: 15px; 
+    text-align: center; 
+    font-size: 18px; 
     font-weight: bold; 
-    margin-bottom: 8px; 
-    display: flex; 
-    align-items: center; 
-    gap: 8px;
+    color: #0369a1; 
+    margin: 0;
 }
 
 .q-detail-box {
     background: white; 
-    margin-bottom: 15px; 
-    padding: 15px; 
-    border: 1px solid #eee;
-    border-radius: 8px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    border: 1px solid #e2e8f0;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.pregunta-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.opcion-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
 }
 
 /* =======================
-   9. RESPONSIVE (MÓVILES Y TABLETS)
+   7. CLASES DE UTILIDAD (Eliminación estilos en línea)
 ======================= */
-@media (max-width: 768px) {
-    .form-grid { 
-        grid-template-columns: 1fr; 
-    }
-    .full-width { 
-        grid-column: span 1; 
-    }
-    .applicant-card { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 15px;
-    }
-    .applicant-actions { 
-        width: 100%; 
-        text-align: right; 
-        margin-left: 0 !important; 
-    }
+.title-mt { margin-top: 15px; }
+.modal-lg { max-width: 700px; }
+
+.eval-section-box {
+    background: #f8fafc; 
+    padding: 20px; 
+    border-radius: 8px; 
+    border: 1px solid #e2e8f0;
+}
+
+.eval-title {
+    margin-top: 0; 
+    color: var(--primary, #0056b3);
+}
+
+.eval-subtitle {
+    font-size: 13px; 
+    color: #666; 
+    margin-bottom: 15px;
+}
+
+.btn-add-pregunta {
+    margin-top: 10px; 
 }

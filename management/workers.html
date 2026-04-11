@@ -9,15 +9,16 @@
 </head>
 <body>
 
-<div id="navbar"></div>
+<header id="navbar"></header>
 
-<div class="container">
-    <div class="header-section">
+<main class="container">
+    
+    <header class="header-section">
         <h1>🔍 Buscador de Talentos</h1>
         <p class="text-muted">Encuentra a los mejores profesionales evaluados y rankeados según tus necesidades.</p>
-    </div>
+    </header>
 
-    <div class="filters-container">
+    <section class="filters-container">
         <input type="text" id="searchTexto" placeholder="Buscar por nombre, profesión o habilidad (Ej. React, Python)...">
         
         <select id="filterUbicacion">
@@ -39,11 +40,11 @@
         <select id="filterOrden" disabled>
             <option value="relevancia">⭐ Ordenado por Mejor Ranking</option>
         </select>
-    </div>
+    </section>
 
-    <div id="workersGrid" class="workers-grid">
-        </div>
-</div>
+    <section id="workersGrid" class="workers-grid"></section>
+    
+</main>
 
 <div id="modalPerfil" class="modal hidden">
     <div class="modal-content">
@@ -53,7 +54,7 @@
     </div>
 </div>
 
-<div id="footer"></div>
+<footer id="footer"></footer>
 
 <script src="../../shared/js/mockData.js"></script>
 <script src="../../shared/js/utils.js"></script>

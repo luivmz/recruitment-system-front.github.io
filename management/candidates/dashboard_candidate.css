@@ -42,6 +42,8 @@
 .profile-details p { font-size: 14px; margin: 10px 0; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
 .skills-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .skill-badge { background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+.profile-actions { margin-top: 20px; }
+.btn-full { width: 100%; }
 
 /* =======================
    PANEL PRINCIPAL
@@ -50,9 +52,17 @@
 .section-header h2 { margin: 0; color: #333; }
 .hidden { display: none !important; }
 
+.edit-section-box {
+    background: white; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 /* Grilla de Postulaciones */
 .postulaciones-grid { display: flex; flex-direction: column; gap: 15px; }
 
+/* .postulacion-card ahora se aplicará a un <article> */
 .postulacion-card {
     background: #fff; border: 1px solid #eaeaea; border-radius: 10px; padding: 20px;
     display: flex; justify-content: space-between; align-items: center;
@@ -63,6 +73,10 @@
 .postulacion-info h3 { margin: 0 0 5px 0; color: var(--primary); font-size: 18px; }
 .postulacion-info p { margin: 0; color: #555; font-size: 14px; }
 .postulacion-date { font-size: 12px; color: #888; margin-top: 8px; display: block; }
+
+.badge-examen {
+    font-size: 12px; margin-left: 10px; color: #16a34a; font-weight: bold;
+}
 
 /* ESTADOS */
 .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
@@ -98,15 +112,34 @@
 .close { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; }
 .close:hover { color: #333; }
 
+.modal-xl { max-width: 750px; }
+
 /* Detalles de Empresa en Modal */
 .company-header-modal { display: flex; align-items: center; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
 .company-header-modal img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
 .company-header-modal h3 { margin: 0; color: var(--primary); font-size: 20px; }
 .company-header-modal p { margin: 2px 0 0 0; color: #64748b; font-size: 14px; }
 
+/* Clases extraídas de JS para detalles de Oferta */
+.postulacion-details-box { margin-bottom: 25px; }
+.oferta-title-modal { color: var(--primary); margin: 0 0 5px 0; }
+.mt-5 { margin-top: 5px; }
+.mb-15 { margin-bottom: 15px; }
+.comentario-text { margin: 5px 0; color: #555; }
+
 /* Resultados del Cuestionario en Modal */
-.evaluacion-score-box { background: #f0f9ff; border: 1px solid #bae6fd; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-size: 18px; font-weight: bold; color: #0369a1; }
+.evaluacion-score-box { background: #f0f9ff; border: 1px solid #bae6fd; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+.score-text { font-size: 18px; font-weight: bold; color: #0369a1; margin: 0; }
+.respuestas-title { margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+.respuestas-warning { font-size: 13px; color: #666; margin-bottom: 15px; }
+
 .q-detail-box { background: white; margin-bottom: 15px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+.q-title { margin-top: 0; font-weight: bold; font-size: 15px; color: #333; }
+.q-list { list-style: none; padding: 0; margin-top: 15px; }
+.q-item { padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+.q-item-selected { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; font-weight: bold; }
+.q-item-normal { background: #f8fafc; color: #64748b; }
+.no-eval-msg { padding: 20px; background: #f8fafc; border-radius: 8px; text-align: center; color: #64748b; }
 
 @media (max-width: 768px) {
     .dashboard-container { grid-template-columns: 1fr; }

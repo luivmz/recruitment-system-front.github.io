@@ -48,7 +48,7 @@ function renderProfileInfo() {
             skillsContainer.innerHTML += `<span class="skill-badge">${skill}</span>`;
         });
     } else {
-        skillsContainer.innerHTML = "<span style='color:#999; font-size:13px;'>No se agregaron habilidades.</span>";
+        skillsContainer.innerHTML = "<span class='text-muted'>No se agregaron habilidades.</span>";
     }
 }
 
@@ -67,8 +67,8 @@ function renderMisPostulaciones() {
 
     if (misPostulaciones.length === 0) {
         container.innerHTML = `
-            <div style="text-align: center; padding: 40px; background: #fff; border-radius: 10px; border: 1px dashed #ccc;">
-                <p style="color: #666; margin-bottom: 15px;">Aún no has postulado a ninguna oferta laboral.</p>
+            <div class="no-eval-msg">
+                <p>Aún no has postulado a ninguna oferta laboral.</p>
                 <button class="btn btn-primary" onclick="window.location.href='../jobs.html'">Explorar Ofertas</button>
             </div>
         `;
@@ -92,11 +92,12 @@ function renderMisPostulaciones() {
         if (oferta.cuestionario && oferta.cuestionario.length > 0) {
             const nota = post.puntaje_cuestionario || 0;
             const total = oferta.cuestionario.length;
-            badgeExamen = `<span style="font-size:12px; margin-left:10px; color:#16a34a; font-weight:bold;">📝 Examen: ${nota}/${total}</span>`;
+            badgeExamen = `<span class="badge-examen">📝 Examen: ${nota}/${total}</span>`;
         }
 
+        // SEMÁNTICA: <article> para la tarjeta de postulación
         container.innerHTML += `
-            <div class="postulacion-card">
+            <article class="postulacion-card">
                 <div class="postulacion-info">
                     <span class="status-badge ${statusClass}">${statusText}</span>
                     <h3>${oferta.titulo} ${badgeExamen}</h3>
@@ -106,13 +107,13 @@ function renderMisPostulaciones() {
                 <div>
                     <button class="btn btn-secondary btn-sm" onclick="verDetallePostulacion(${post.id})">Ver Detalles y Examen</button>
                 </div>
-            </div>
+            </article>
         `;
     });
 }
 
 // =======================
-// VER DETALLES Y EXAMEN (MODAL)
+// VER DETALLES Y EXAMEN (MODAL NEUTRO)
 // =======================
 function verDetallePostulacion(postulacionId) {
     const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
@@ -126,25 +127,25 @@ function verDetallePostulacion(postulacionId) {
     const statusText = post.estado.toUpperCase();
     const statusClass = `status-${post.estado.toLowerCase()}`;
 
-    // 1. Cabecera (Detalles de Oferta y Empresa)
+    // SEMÁNTICA: <header> interno y <section> 
     let html = `
-        <div class="company-header-modal">
+        <header class="company-header-modal">
             <img src="${empresa?.logo || 'https://via.placeholder.com/60'}" alt="Logo Empresa">
             <div>
                 <h3>${empresa?.nombre || 'Empresa Confidencial'}</h3>
                 <p>Sector: ${empresa?.sector || 'No especificado'} | Ubicación: ${empresa?.ubicacion || 'Remoto'}</p>
             </div>
-        </div>
+        </header>
 
-        <div style="margin-bottom: 25px;">
-            <h2 style="color:var(--primary); margin:0 0 5px 0;">${oferta.titulo}</h2>
-            <span class="status-badge ${statusClass}" style="margin-top: 5px;">ESTADO DEL PROCESO: ${statusText}</span>
-            <p style="margin: 10px 0 5px 0;"><strong>Modalidad:</strong> ${oferta.modalidad} | <strong>Sueldo:</strong> S/ ${oferta.sueldo}</p>
-            <p style="margin: 5px 0; color: #555;"><strong>Comentario del Reclutador:</strong> <em>"${post.comentario || 'En revisión...'}"</em></p>
-        </div>
+        <section class="postulacion-details-box">
+            <h2 class="oferta-title-modal">${oferta.titulo}</h2>
+            <span class="status-badge ${statusClass} mt-5">ESTADO DEL PROCESO: ${statusText}</span>
+            <p class="mt-5"><strong>Modalidad:</strong> ${oferta.modalidad} | <strong>Sueldo:</strong> S/ ${oferta.sueldo}</p>
+            <p class="comentario-text"><strong>Comentario del Reclutador:</strong> <em>"${post.comentario || 'En revisión...'}"</em></p>
+        </section>
     `;
 
-    // 2. Bloque de Resultados del Cuestionario (NEUTRO)
+    // Bloque de Resultados del Cuestionario (NEUTRO)
     if (oferta.cuestionario && oferta.cuestionario.length > 0) {
         
         const puntaje = post.puntaje_cuestionario || 0;
@@ -153,43 +154,44 @@ function verDetallePostulacion(postulacionId) {
 
         html += `
             <div class="evaluacion-score-box">
-                🎯 Resultado de tu Evaluación Técnica: ${puntaje} / ${total} aciertos (${porcentaje}%)
+                <p class="score-text">🎯 Resultado de tu Evaluación Técnica: ${puntaje} / ${total} aciertos (${porcentaje}%)</p>
             </div>
-            <h3 style="margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px;">Detalle de tus Respuestas</h3>
-            <p style="font-size:13px; color:#666; margin-bottom: 15px;">Por motivos de seguridad y confidencialidad, solo se muestra la opción que seleccionaste durante el examen.</p>
+            <h3 class="respuestas-title">Detalle de tus Respuestas</h3>
+            <p class="respuestas-warning">Por motivos de seguridad y confidencialidad, solo se muestra la opción que seleccionaste durante el examen.</p>
         `;
 
         // Renderizar pregunta por pregunta
         oferta.cuestionario.forEach((q, index) => {
             const respuestaMia = (post.respuestas_cuestionario || []).find(r => r.pregunta_id === q.id);
 
+            // SEMÁNTICA: <article> para englobar el detalle de una pregunta resuelta
             html += `
-                <div class="q-detail-box">
-                    <p style="margin-top:0; font-weight:bold; font-size:15px; color:#333;">${index + 1}. ${q.pregunta}</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                <article class="q-detail-box">
+                    <h4 class="q-title">${index + 1}. ${q.pregunta}</h4>
+                    <ul class="q-list">
             `;
 
             // Opciones de cada pregunta
             q.opciones.forEach(opt => {
-                let itemClass = "padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px;";
+                let itemClass = "q-item ";
                 let labelExtra = "";
 
                 const fueMiRespuesta = respuestaMia && (opt === respuestaMia.respuesta_usuario);
 
                 if (fueMiRespuesta) {
-                    itemClass += " background: #e0f2fe; border-color: #bae6fd; color: #0369a1; font-weight: bold;"; // Azul neutro
+                    itemClass += "q-item-selected";
                     labelExtra = " <strong>(Tu elección) 📌</strong>";
                 } else {
-                    itemClass += " background: #f8fafc; color: #64748b;"; // Gris
+                    itemClass += "q-item-normal";
                 }
 
-                html += `<li style="${itemClass}">${opt} ${labelExtra}</li>`;
+                html += `<li class="${itemClass}">${opt} ${labelExtra}</li>`;
             });
 
-            html += `</ul></div>`;
+            html += `</ul></article>`;
         });
     } else {
-        html += `<p style="padding: 20px; background: #f8fafc; border-radius: 8px; text-align: center; color: #64748b;">No hubo evaluación técnica para esta postulación.</p>`;
+        html += `<p class="no-eval-msg">No hubo evaluación técnica para esta postulación.</p>`;
     }
 
     document.getElementById("modalBody").innerHTML = html;

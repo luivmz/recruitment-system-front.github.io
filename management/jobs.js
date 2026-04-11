@@ -123,7 +123,7 @@ function renderOfertas() {
         const tieneExamen = (o.cuestionario && o.cuestionario.length > 0) ? `<span style="color:#e67e22; font-weight:bold; font-size:12px;">📝 Requiere Evaluación</span>` : '';
 
         container.innerHTML += `
-            <div class="job-card">
+            <article class="job-card">
                 <div>
                     <div class="job-header">
                         <img src="${empresa?.logo || 'https://via.placeholder.com/50'}" alt="Logo" class="company-logo">
@@ -141,7 +141,7 @@ function renderOfertas() {
                     </div>
                 </div>
                 <button class="btn-details" onclick="verDetalles(${o.id})">Ver Detalles</button>
-            </div>
+            </article>
         `;
     });
 }

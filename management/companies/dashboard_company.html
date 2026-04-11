@@ -9,89 +9,71 @@
 </head>
 <body>
 
-<div id="navbar"></div>
+<header id="navbar"></header>
 
-<div class="dashboard-container">
+<main class="dashboard-container">
     
     <section id="view-empresas" class="dashboard-section">
-        <div class="section-header">
+        <header class="section-header">
             <div>
                 <h2>🏢 Mis Empresas</h2>
                 <p class="text-muted">Gestiona los perfiles de tus empresas registradas.</p>
             </div>
             <button class="btn btn-primary" onclick="openModal('modalNuevaEmpresa')">+ Registrar Nueva Empresa</button>
-        </div>
+        </header>
         <div id="empresasList" class="grid-container">
             </div>
     </section>
 
     <section id="view-ofertas" class="dashboard-section hidden">
-        <div class="section-header">
+        <header class="section-header">
             <div>
                 <button class="btn btn-secondary btn-sm" onclick="showView('view-empresas')">← Volver a Mis Empresas</button>
-                <h2 id="ofertasTitle" style="margin-top: 15px;">Ofertas Publicadas</h2>
+                <h2 id="ofertasTitle" class="title-mt">Ofertas Publicadas</h2>
             </div>
             <button class="btn btn-primary" onclick="abrirModalNuevaOferta()">+ Publicar Oferta</button>
-        </div>
+        </header>
         <div id="ofertasList" class="grid-container">
             </div>
     </section>
 
     <section id="view-postulantes" class="dashboard-section hidden">
-        <div class="section-header">
+        <header class="section-header">
             <div>
                 <button class="btn btn-secondary btn-sm" onclick="showView('view-ofertas')">← Volver a Ofertas</button>
-                <h2 id="postulantesTitle" style="margin-top: 15px;">Candidatos</h2>
-                <p class="text-muted">Rankeados por algoritmo de compatibilidad + Evaluación Técnica</p>
+                <h2 id="postulantesTitle" class="title-mt">Postulantes</h2>
             </div>
-        </div>
-        <div id="postulantesList">
+        </header>
+        <div id="postulantesList" class="grid-container">
             </div>
     </section>
-</div>
+
+</main>
 
 <div id="modalNuevaEmpresa" class="modal hidden">
     <div class="modal-content">
         <span class="close" onclick="closeModal('modalNuevaEmpresa')">&times;</span>
-        <h2>Registrar Empresa</h2>
+        <h2>Registrar Nueva Empresa</h2>
         <form id="formNuevaEmpresa" class="form-grid">
-            <input type="text" id="empRuc" placeholder="RUC" required>
-            <input type="text" id="empRazon" placeholder="Razón Social" required>
-            <input type="text" id="empNombre" placeholder="Nombre Comercial" required class="full-width">
-            <input type="text" id="empSector" placeholder="Sector (Ej. Tecnología)" required>
-            <select id="empTamano" required>
-                <option value="">Tamaño de Empresa</option>
-                <option value="1-10">1-10 empleados</option>
-                <option value="11-50">11-50 empleados</option>
-                <option value="51-200">51-200 empleados</option>
-                <option value="200+">Más de 200 empleados</option>
-            </select>
+            <input type="text" id="empNombre" placeholder="Nombre de la Empresa" required class="full-width">
+            <input type="text" id="empSector" placeholder="Sector (Ej. Tecnología, Finanzas)" required>
             <input type="text" id="empUbicacion" placeholder="Sede Principal (Ej. Lima)" required>
-            <input type="text" id="empTelefono" placeholder="Teléfono" required>
-            <input type="url" id="empWeb" placeholder="Página Web (Opcional)" class="full-width">
-            
-            <h4 class="full-width" style="margin: 10px 0 0 0; color: #555;">Datos del Contacto</h4>
-            <input type="text" id="empContacto" placeholder="Nombre de Contacto" required>
-            <input type="text" id="empCargo" placeholder="Cargo del Contacto" required>
-            
+            <input type="url" id="empLogo" placeholder="URL del Logo (Opcional)" class="full-width">
             <div class="full-width">
                 <textarea id="empDesc" placeholder="Breve descripción de la empresa..." rows="3" required></textarea>
             </div>
-            <input type="url" id="empLogo" placeholder="URL Logo (Opcional)" class="full-width">
-            
             <div class="full-width form-actions">
-                <button type="submit" class="btn btn-primary">Guardar Empresa</button>
+                <button type="submit" class="btn btn-primary">Registrar Empresa</button>
             </div>
         </form>
     </div>
 </div>
 
 <div id="modalNuevaOferta" class="modal hidden">
-    <div class="modal-content" style="max-width: 800px;">
+    <div class="modal-content" style="max-width: 700px;">
         <span class="close" onclick="closeModal('modalNuevaOferta')">&times;</span>
         <h2>Publicar Oferta Laboral</h2>
         <form id="formNuevaOferta" class="form-grid">
-            
             <input type="text" id="ofTitulo" placeholder="Título del Puesto" required class="full-width">
             <select id="ofCategoria" required>
                 <option value="">Selecciona Categoría</option>
@@ -108,14 +90,13 @@
                 <textarea id="ofDesc" placeholder="Descripción completa del puesto..." rows="4" required></textarea>
             </div>
 
-            <div class="full-width" style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <h3 style="margin-top:0; color: var(--primary);">📝 Evaluación Técnica (Opcional)</h3>
-                <p style="font-size:13px; color:#666; margin-bottom:15px;">Agrega preguntas para evaluar a los candidatos automáticamente. Selecciona el círculo de la opción que será la correcta.</p>
+            <div class="full-width eval-section-box">
+                <h3 class="eval-title">📝 Evaluación Técnica (Opcional)</h3>
+                <p class="eval-subtitle">Agrega preguntas para evaluar a los candidatos automáticamente. Selecciona el círculo de la opción que será la correcta.</p>
                 
-                <div id="preguntasContainer">
-                    </div>
+                <div id="preguntasContainer"></div>
                 
-                <button type="button" class="btn btn-secondary" onclick="agregarPreguntaUI()" style="margin-top: 10px;">+ Agregar Pregunta</button>
+                <button type="button" class="btn btn-secondary btn-add-pregunta" onclick="agregarPreguntaUI()">+ Agregar Pregunta</button>
             </div>
 
             <div class="full-width form-actions">
@@ -126,18 +107,18 @@
 </div>
 
 <div id="modalDetalleCuestionario" class="modal hidden">
-    <div class="modal-content" style="max-width: 700px;">
+    <div class="modal-content modal-lg">
         <span class="close" onclick="closeModal('modalDetalleCuestionario')">&times;</span>
         <h2>Detalle de Evaluación Técnica</h2>
-        <div id="detalleCuestionarioContenido">
-            </div>
+        <div id="detalleCuestionarioContenido"></div>
     </div>
 </div>
 
-<div id="footer"></div>
+<footer id="footer"></footer>
 
 <script src="../../shared/js/mockData.js"></script>
 <script src="../../shared/js/utils.js"></script>
 <script src="dashboard_company.js"></script>
+
 </body>
 </html>
